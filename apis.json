@@ -1,0 +1,68 @@
+{
+    "name": "Cision",
+    "description": "From engaging influencers and sharing news to comprehensive media and analytics, Cision  provides an all-in-one solution to help you build awareness, earn publicity and measure results.    Cision monitors millions of social conversations per day on Twi...",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28679-cision.jpg",
+    "tags": [
+        "have api",
+        "no api found"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/cision\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Cision",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28679-cision.jpg",
+            "humanURL": "http:\/\/cision.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/cision-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/24-7-press-release-newswire"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/forbes"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/cision"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/247pressrelease"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Forbes"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Cision"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/24-7pressrelease.com"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/forbes.com"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/cision.com"
+        }
+    ]
+}
