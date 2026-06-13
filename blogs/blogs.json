@@ -1,0 +1,14 @@
+{
+  "repo": "cision",
+  "feeds": [
+    {
+      "source": "https://www.cision.com/us/blog/",
+      "feed_url": "https://www.cision.com/us/blog/",
+      "title": "Cision Blog",
+      "saved": 0,
+      "method": "html"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-13T00:00:00Z"
+}

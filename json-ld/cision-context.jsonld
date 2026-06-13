@@ -1,0 +1,233 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "cision": "https://www.cision.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Mention": {
+      "@id": "cision:Mention",
+      "@context": {
+        "id": {
+          "@id": "cision:mentionId",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "publishedAt": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "source": {
+          "@id": "cision:source",
+          "@type": "xsd:string"
+        },
+        "sentiment": {
+          "@id": "cision:sentiment",
+          "@type": "xsd:string"
+        },
+        "reach": {
+          "@id": "cision:reach",
+          "@type": "xsd:integer"
+        },
+        "author": {
+          "@id": "schema:author",
+          "@type": "xsd:string"
+        },
+        "content": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "mediaType": {
+          "@id": "cision:mediaType",
+          "@type": "xsd:string"
+        },
+        "language": {
+          "@id": "schema:inLanguage",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "schema:addressCountry",
+          "@type": "xsd:string"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@list"
+        }
+      }
+    },
+    "MediaContact": {
+      "@id": "cision:MediaContact",
+      "@context": {
+        "id": {
+          "@id": "cision:contactId",
+          "@type": "xsd:string"
+        },
+        "firstName": {
+          "@id": "schema:givenName",
+          "@type": "xsd:string"
+        },
+        "lastName": {
+          "@id": "schema:familyName",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "outlet": {
+          "@id": "cision:outlet",
+          "@type": "xsd:string"
+        },
+        "beat": {
+          "@id": "cision:beat",
+          "@type": "xsd:string"
+        },
+        "twitter": {
+          "@id": "schema:sameAs",
+          "@type": "@id"
+        },
+        "location": {
+          "@id": "schema:location",
+          "@type": "xsd:string"
+        },
+        "influenceScore": {
+          "@id": "cision:influenceScore",
+          "@type": "xsd:decimal"
+        }
+      }
+    },
+    "PressRelease": {
+      "@id": "cision:PressRelease",
+      "@context": {
+        "id": {
+          "@id": "cision:pressReleaseId",
+          "@type": "xsd:string"
+        },
+        "headline": {
+          "@id": "schema:headline",
+          "@type": "xsd:string"
+        },
+        "body": {
+          "@id": "schema:articleBody",
+          "@type": "xsd:string"
+        },
+        "dateline": {
+          "@id": "cision:dateline",
+          "@type": "xsd:string"
+        },
+        "submittedAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "distributedAt": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "status": {
+          "@id": "cision:status",
+          "@type": "xsd:string"
+        },
+        "distribution": {
+          "@id": "cision:distribution",
+          "@type": "xsd:string"
+        },
+        "contact": {
+          "@id": "schema:author",
+          "@type": "@json"
+        }
+      }
+    },
+    "AnalyticsReport": {
+      "@id": "cision:AnalyticsReport",
+      "@context": {
+        "id": {
+          "@id": "cision:reportId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "startDate": {
+          "@id": "schema:startDate",
+          "@type": "xsd:date"
+        },
+        "endDate": {
+          "@id": "schema:endDate",
+          "@type": "xsd:date"
+        },
+        "totalMentions": {
+          "@id": "cision:totalMentions",
+          "@type": "xsd:integer"
+        },
+        "totalReach": {
+          "@id": "cision:totalReach",
+          "@type": "xsd:integer"
+        },
+        "sentimentPositive": {
+          "@id": "cision:sentimentPositive",
+          "@type": "xsd:decimal"
+        },
+        "sentimentNeutral": {
+          "@id": "cision:sentimentNeutral",
+          "@type": "xsd:decimal"
+        },
+        "sentimentNegative": {
+          "@id": "cision:sentimentNegative",
+          "@type": "xsd:decimal"
+        },
+        "topSources": {
+          "@id": "cision:topSources",
+          "@container": "@list"
+        },
+        "format": {
+          "@id": "cision:format",
+          "@type": "xsd:string"
+        }
+      }
+    },
+    "MediaOutlet": {
+      "@id": "cision:MediaOutlet",
+      "@context": {
+        "id": {
+          "@id": "cision:outletId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "type": {
+          "@id": "cision:outletType",
+          "@type": "xsd:string"
+        },
+        "country": {
+          "@id": "schema:addressCountry",
+          "@type": "xsd:string"
+        },
+        "language": {
+          "@id": "schema:inLanguage",
+          "@type": "xsd:string"
+        },
+        "circulation": {
+          "@id": "cision:circulation",
+          "@type": "xsd:integer"
+        },
+        "monthlyVisitors": {
+          "@id": "cision:monthlyVisitors",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}
