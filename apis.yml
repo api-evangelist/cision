@@ -1,0 +1,88 @@
+aid: cision
+name: Cision
+description: Cision is an AI-powered PR and earned media software platform offering REST APIs for media database access, press release distribution, media monitoring, analytics, and influencer identification. CisionOne provides a REST API that connects media monitoring data with internal tools, BI platforms, and reporting systems.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/cision/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - PR Software
+  - Public Relations
+  - Earned Media
+  - Media Monitoring
+  - Press Release Distribution
+  - Media Database
+  - Influencer Identification
+  - Analytics
+apis:
+  - aid: cision:cisionone-api
+    name: CisionOne API
+    description: REST API for CisionOne that allows connection of media monitoring data with internal tools and BI platforms. Provides access to mention streams, aggregated analytics, and media coverage data. Responses are available in JSON and CSV formats. Base URL is https://api.cision.one.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.cision.com/cisionone/
+    baseURL: https://api.cision.one
+    tags:
+      - Media Monitoring
+      - Mentions
+      - Analytics
+      - Media Intelligence
+    properties:
+      - type: Documentation
+        url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/cision/refs/heads/main/openapi.yml
+  - aid: cision:media-database-api
+    name: Cision Media Database API
+    description: API providing access to Cision's media contacts database with over 1.4 million journalist, blogger, and influencer contacts for targeted PR outreach and media list management.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.cision.com/media-database/
+    baseURL: https://api.cision.one
+    tags:
+      - Media Database
+      - Journalists
+      - Influencers
+      - Contacts
+    properties:
+      - type: Documentation
+        url: https://www.cision.com/media-database/
+  - aid: cision:pr-distribution-api
+    name: PR Newswire Distribution API
+    description: API for distributing press releases through PR Newswire's wire service, enabling programmatic submission, distribution management, and delivery confirmation for press releases across local, national, and global networks.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.cision.com/pr-distribution-and-placement/prnewswire/
+    baseURL: https://api.cision.one
+    tags:
+      - Press Release
+      - Distribution
+      - PR Newswire
+      - Wire Service
+    properties:
+      - type: Documentation
+        url: https://www.cision.com/pr-distribution-and-placement/
+common:
+  - type: Website
+    url: https://www.cision.com/
+  - type: Documentation
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+  - type: GitHubOrg
+    url: https://github.com/cision
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/cision
+  - type: Blog
+    url: https://www.cision.com/us/blog/
+  - type: Pricing
+    url: https://www.cision.com/pricing/
+  - type: StatusPage
+    url: https://oneuptime.cision.com/
+  - type: X
+    url: https://x.com/cision
+  - type: Plans
+    url: plans/cision-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/cision-rate-limits.yml
+  - type: FinOps
+    url: finops/cision-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

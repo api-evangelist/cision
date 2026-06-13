@@ -1,0 +1,131 @@
+name: Cision Plans and Pricing
+description: Cision offers custom enterprise pricing across several product tiers. All platform pricing requires a sales consultation and annual contract commitment. No public self-serve pricing is available for the main CisionOne platform or API access.
+url: https://www.cision.com/pricing/
+created: '2026-06-13'
+modified: '2026-06-13'
+plans:
+  - name: CisionOne Platform
+    description: Full-featured PR and earned media platform including media monitoring, journalist database, social listening, outreach CRM, and analytics. API access is included as an add-on or enterprise feature.
+    url: https://www.cision.com/cisionone/
+    pricing:
+      model: custom
+      period: annual
+      range:
+        low: 10000
+        high: 30000
+        currency: USD
+        note: Custom quotes required; pricing varies by users, modules, and usage
+    features:
+      - Media monitoring across print, digital, broadcast, and social
+      - Journalist and influencer database (1.4M+ contacts)
+      - Social listening and management
+      - Earned media analytics and reporting
+      - Outreach CRM and campaign management
+      - AI-powered writing assistance (Amplify AI)
+      - REST API access for data integration
+      - BI platform integration (Tableau, PowerBI, Domo)
+  - name: Journalist Database Only
+    description: Access to Cision's media contacts database without the full monitoring suite.
+    url: https://www.cision.com/media-database/
+    pricing:
+      model: custom
+      period: annual
+      range:
+        low: 5700
+        high: 6000
+        currency: USD
+        note: Estimated range; requires sales consultation
+    features:
+      - 1.4M+ journalist and influencer contacts
+      - Media list building and management
+      - Contact search and filtering
+  - name: PR Newswire Distribution
+    description: Press release distribution through PR Newswire wire service. Pay-per-release model with mandatory annual membership.
+    url: https://www.cision.com/pr-distribution-and-placement/prnewswire/
+    pricing:
+      model: per-release
+      membership:
+        cost: 195
+        currency: USD
+        period: annual
+      tiers:
+        - name: Local Release
+          cost: 350
+          currency: USD
+          per: release
+        - name: National Release
+          cost: 805
+          currency: USD
+          per: release
+        - name: Global Distribution
+          cost: 8700
+          currency: USD
+          per: release
+        - name: Image Attachment
+          cost: 325
+          currency: USD
+          per: image
+    features:
+      - Wire distribution to news outlets
+      - Search engine syndication
+      - Media pickup tracking
+      - Distribution reporting
+  - name: PRWeb Distribution
+    description: Entry-level press release distribution for small businesses and startups. No membership required.
+    url: https://www.prweb.com/
+    pricing:
+      model: per-release
+      tiers:
+        - name: Basic
+          cost: 110
+          currency: USD
+          per: release
+        - name: Standard
+          cost: 230
+          currency: USD
+          per: release
+        - name: Advanced
+          cost: 340
+          currency: USD
+          per: release
+        - name: Premium
+          cost: 455
+          currency: USD
+          per: release
+    features:
+      - Online press release distribution
+      - Search engine optimization
+      - Social media sharing
+      - Analytics and reporting
+  - name: Connectively (formerly HARO)
+    description: Expert connection service connecting journalists with sources. Formerly known as Help a Reporter Out (HARO).
+    url: https://www.connectively.us/
+    pricing:
+      model: subscription
+      period: monthly
+      tiers:
+        - name: Lite
+          cost: 0
+          currency: USD
+          pitches_per_month: 10
+        - name: Core
+          cost: 19
+          currency: USD
+          pitches_per_month: 25
+        - name: Pro
+          cost: 49
+          currency: USD
+          pitches_per_month: 50
+        - name: Premier
+          cost: 149
+          currency: USD
+          pitches_per_month: 150
+    features:
+      - Source pitching to journalists
+      - Query alerts
+      - Profile management
+notes:
+  - Cision does not publish platform pricing publicly; all quotes require sales engagement
+  - API access is an add-on feature for enterprise CisionOne subscribers
+  - Annual contracts are standard; no monthly platform options
+  - Median annual contract value based on tracked purchases is approximately $12,677

@@ -1,0 +1,51 @@
+name: Cision FinOps
+description: Financial operations guidance for managing Cision API and platform costs. Cision uses custom enterprise pricing with annual contracts and sales-led procurement. Cost management requires proactive negotiation and usage monitoring.
+url: https://www.cision.com/pricing/
+created: '2026-06-13'
+modified: '2026-06-13'
+considerations:
+  - name: Annual Contract Commitment
+    description: All CisionOne platform subscriptions require annual contracts. There are no monthly billing options for the main platform, making cost planning critical before signing.
+    impact: high
+    recommendation: Model expected usage across all features before committing. Negotiate multi-year discounts where possible.
+  - name: Custom Pricing Opacity
+    description: Cision does not publish platform pricing. Costs are highly variable based on number of users, modules enabled, data volume, and negotiation leverage. Market benchmarks suggest $10,000–$30,000 annually for mid-market accounts.
+    impact: high
+    recommendation: Obtain multiple competing quotes. Reference market median of approximately $12,677/year as a negotiation anchor. Engage procurement or legal to benchmark contract terms.
+  - name: API Access Add-On Costs
+    description: REST API access for BI integrations (Tableau, PowerBI, Domo) may carry additional fees beyond the base CisionOne subscription. Clarify API inclusion in contract terms before signing.
+    impact: medium
+    recommendation: Explicitly confirm API access is included in the base contract. Request API usage limits and any overage fees in writing.
+  - name: PR Newswire Per-Release Costs
+    description: PR Newswire distribution is pay-per-release with a mandatory annual membership fee ($195–$249). Release costs range from $350 (local) to $8,700 (global). Image attachments add $325 each. Costs can accumulate rapidly for high-volume distribution.
+    impact: high
+    recommendation: Budget per-release costs separately from platform subscription. Consider PRWeb ($110–$455/release) for budget-sensitive distributions. Negotiate bundle pricing for high-volume distribution commitments.
+  - name: Module Sprawl Risk
+    description: Cision offers multiple products (CisionOne, PRWeb, PR Newswire, Connectively, Brandwatch) that can be combined. Purchasing multiple modules without a clear strategy leads to redundant capabilities and inflated spend.
+    impact: medium
+    recommendation: Audit which modules deliver measurable ROI. Consolidate onto the minimum necessary product set. Avoid bundling pressure from sales.
+  - name: Overage and Seat Expansion
+    description: Adding users or expanding monitored topics/keywords after contract signing typically triggers additional fees. Seat additions are billed at list price unless negotiated upfront.
+    impact: medium
+    recommendation: Forecast user count and keyword volume requirements for the full contract term. Negotiate pre-committed expansion pricing in the initial contract.
+  - name: PRWeb and Connectively Entry Points
+    description: PRWeb (per-release from $110) and Connectively Lite (free) offer low-cost entry points for testing Cision's ecosystem before committing to a full CisionOne platform contract.
+    impact: low
+    recommendation: Use PRWeb and Connectively to evaluate Cision's distribution quality and journalist network before committing to enterprise contracts.
+cost_optimization:
+  - strategy: Negotiate before renewal
+    description: Cision contracts are renewals-focused. Leverage competing quotes from Meltwater, Muck Rack, or Prowly during renewal negotiations to secure discounts of 10–20%.
+  - strategy: Right-size user seats
+    description: Audit active users monthly. Remove inactive seats promptly as seats are a primary cost driver in enterprise pricing.
+  - strategy: Use CSV exports over API calls
+    description: For non-real-time reporting needs, scheduled CSV exports may reduce API dependency and associated costs compared to live API integrations.
+  - strategy: PRWeb for budget distributions
+    description: Use PRWeb for non-critical or regional releases instead of PR Newswire to reduce per-release costs by 70–85%.
+  - strategy: Consolidate distribution timing
+    description: Batch press release distributions to minimize per-release fees and avoid duplicate syndication costs across multiple wire services.
+benchmarks:
+  platform_median_annual: 12677
+  platform_range_low: 3400
+  platform_range_high: 33700
+  currency: USD
+  source: Market tracking of 102 purchases (2025–2026)

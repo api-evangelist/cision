@@ -1,0 +1,33 @@
+name: Cision API Rate Limits
+description: Rate limiting policies for the CisionOne REST API. The API is throttled at the account level to ensure fair usage and platform stability. Requests are token-authenticated through the CisionOne Admin panel.
+url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+created: '2026-06-13'
+modified: '2026-06-13'
+limits:
+  - name: CisionOne API Request Rate
+    description: Maximum number of API requests allowed per minute across all endpoints. Requests may be throttled when this limit is exceeded.
+    scope: account
+    rate:
+      requests: 10
+      period: minute
+      note: Approximately 1 request every 6 seconds; throttling may be applied when exceeded
+    endpoints:
+      - /mention-streams
+      - /mention-streams/{id}/mentions
+      - /mention-streams/{id}/summary
+  - name: Data Response Formats
+    description: The API supports both JSON and CSV response formats. Format selection may affect payload size and processing overhead.
+    formats:
+      - json
+      - csv
+authentication:
+  type: token
+  description: API access requires a bearer token generated through CisionOne Admin settings. The token must be included in the Authorization header of each request.
+  setup_url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+  header: Authorization
+  scheme: Bearer
+notes:
+  - Rate limits are applied across all endpoints for a given account token
+  - The API requires pre-configured Mention Streams to be set up in CisionOne before data can be retrieved
+  - Specific rate limit headers are not publicly documented; contact Cision support for enterprise rate limit increases
+  - Rate limits may vary by contract tier and account type
