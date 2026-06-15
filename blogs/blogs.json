@@ -4,11 +4,15 @@
     {
       "source": "https://www.cision.com/us/blog/",
       "feed_url": "https://www.cision.com/us/blog/",
-      "title": "Cision Blog",
+      "title": "",
       "saved": 0,
-      "method": "html"
+      "method": "none"
+    },
+    {
+      "source": "https://www.linkedin.com/company/cision",
+      "error": "HTTPError"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-13T00:00:00Z"
+  "fetched": "2026-06-14T20:42:17Z"
 }
