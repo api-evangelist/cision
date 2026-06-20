@@ -1,7 +1,7 @@
 aid: cision
 name: Cision
 description: Cision is an AI-powered PR and earned media software platform offering REST APIs for media database access, press release distribution, media monitoring, analytics, and influencer identification. CisionOne provides a REST API that connects media monitoring data with internal tools, BI platforms, and reporting systems.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/cision/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -19,7 +19,7 @@ apis:
   - aid: cision:cisionone-api
     name: CisionOne API
     description: REST API for CisionOne that allows connection of media monitoring data with internal tools and BI platforms. Provides access to mention streams, aggregated analytics, and media coverage data. Responses are available in JSON and CSV formats. Base URL is https://api.cision.one.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cision.com/cisionone/
     baseURL: https://api.cision.one
     tags:
@@ -35,7 +35,7 @@ apis:
   - aid: cision:media-database-api
     name: Cision Media Database API
     description: API providing access to Cision's media contacts database with over 1.4 million journalist, blogger, and influencer contacts for targeted PR outreach and media list management.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cision.com/media-database/
     baseURL: https://api.cision.one
     tags:
@@ -49,7 +49,7 @@ apis:
   - aid: cision:pr-distribution-api
     name: PR Newswire Distribution API
     description: API for distributing press releases through PR Newswire's wire service, enabling programmatic submission, distribution management, and delivery confirmation for press releases across local, national, and global networks.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.cision.com/pr-distribution-and-placement/prnewswire/
     baseURL: https://api.cision.one
     tags:
