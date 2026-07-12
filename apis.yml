@@ -61,6 +61,8 @@ apis:
       - type: Documentation
         url: https://www.cision.com/pr-distribution-and-placement/
 common:
+  - type: DomainSecurity
+    url: security/cision-domain-security.yml
   - type: Website
     url: https://www.cision.com/
   - type: Documentation
