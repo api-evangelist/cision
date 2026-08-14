@@ -16,7 +16,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/cision.png
 url: https://raw.githubusercontent.com/api-evangelist/cision/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-07-25'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
   - PR Software
@@ -42,16 +42,81 @@ apis:
     properties:
       - type: Documentation
         url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+      - type: APIReference
+        url: https://developers.cision.one/docs/api/v2
       - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/cision/refs/heads/main/openapi.yml
+        url: openapi/cision-cisionone-openapi.yml
+      - type: Overlay
+        url: overlays/cision-cisionone-overlay.yaml
+  - aid: cision:cision-communications-cloud-api
+    name: Next Generation Cision Communications Cloud API
+    description: >-
+      REST API for the Next Generation Cision Communications Cloud, Cision's earned
+      media monitoring and analytics platform. Runs off searches already created in
+      the platform and returns either a list of articles and their metadata, or
+      aggregate statistics for the matching set (total mentions, ad equivalency,
+      readership, social shares), in JSON or CSV. Served on api.trendkite.com, the
+      host Cision inherited with its 2019 acquisition of TrendKite. Token
+      authentication via POST /api/login, then an X-Auth-Token header. Readership for
+      online content is zeroed in the response body under Cision's data licensing
+      terms and delivered instead as a five-minute presigned CSV URL in the
+      x-additional-info response header. Cision publishes no OpenAPI for this surface.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+    humanURL: https://cision.atlassian.net/wiki/spaces/CSM/pages/25765216446/Next+Generation+Cision+Communications+Cloud
+    baseURL: https://api.trendkite.com
+    tags:
+      - Media Monitoring
+      - Earned Media
+      - Analytics
+      - Public Relations
+    properties:
+      - type: Documentation
+        url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+      - type: Authentication
+        url: authentication/cision-authentication.yml
+      - type: RateLimits
+        url: rate-limits/cision-rate-limits.yml
+  - aid: cision:cision-web-solutions-api
+    name: Cision Web Solutions Public API
+    description: >-
+      Public data API behind Cision Web Solutions, Cision's embeddable investor
+      relations and online newsroom module library. Serves press release feeds and
+      media feeds (JSON, XML and RSS), share price history, ticker and total return
+      data, shareholder ownership breakdowns sourced from Euroclear, analyst
+      estimates from SME Direkt, insider transactions from the Swedish FSA, financial
+      calendar events and printed material ordering. Authenticated by a per-customer,
+      per-module access key carried in the URL path. Cision publishes no OpenAPI or
+      written endpoint reference for this API; the operation surface is documented
+      only through Cision's own open-source client library and per-module technical
+      white papers on the demo site.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+    humanURL: https://websolutions.ne.cision.com/
+    baseURL: https://publish.ne.cision.com/papi/
+    tags:
+      - Investor Relations
+      - Press Releases
+      - Newsroom
+      - Market Data
+      - Embeddable Components
+    properties:
+      - type: Documentation
+        url: https://github.com/cision/websolutions
+      - type: SourceCode
+        url: https://github.com/cision/websolutions
+      - type: Components
+        url: components/cision-components.yml
+      - type: Webhooks
+        url: asyncapi/cision-webhooks.yml
 common:
+  - type: Authentication
+    url: authentication/cision-authentication.yml
   - type: DomainSecurity
     url: security/cision-domain-security.yml
   - type: Website
     url: https://www.cision.com/
   - type: Documentation
     url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
-  - type: GitHubOrg
+  - type: GitHubOrganization
     url: https://github.com/cision
   - type: LinkedIn
     url: https://www.linkedin.com/company/cision
@@ -71,6 +136,53 @@ common:
     url: finops/cision-finops.yml
   - type: News
     url: https://www.cision.com/pr-distribution-and-placement/prnewswire/
+  - type: APIReference
+    url: https://developers.cision.one/docs/api/v2
+  - type: GettingStarted
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+  - type: HelpCenter
+    url: https://cision.atlassian.net/wiki/spaces/CSM/overview
+  - type: Support
+    url: https://www.cision.com/contact-us/
+  - type: Login
+    url: https://app.cision.one/
+  - type: TermsOfService
+    url: https://www.cision.com/legal/msa/
+  - type: PrivacyPolicy
+    url: https://www.cision.com/legal/privacy-policy/
+  - type: Compliance
+    url: https://www.cision.com/legal/security-statement/
+  - type: OpenAPI
+    url: openapi/cision-cisionone-openapi.yml
+  - type: Overlay
+    url: overlays/cision-cisionone-overlay.yaml
+  - type: Conventions
+    url: conventions/cision-conventions.yml
+  - type: ErrorCatalog
+    url: errors/cision-problem-types.yml
+  - type: DataModel
+    url: data-model/cision-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/cision-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/cision-changelog.yml
+  - type: Conformance
+    url: conformance/cision-conformance.yml
+  - type: Packages
+    url: packages/cision-packages.yml
+  - type: Components
+    url: components/cision-components.yml
+  - type: Webhooks
+    url: asyncapi/cision-webhooks.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/cision-llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
