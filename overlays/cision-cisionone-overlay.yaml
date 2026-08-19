@@ -1,0 +1,61 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the CisionOne API
+  version: 1.0.0
+extends: openapi/_original/cision-cisionone-openapi.json
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: https://developers.cision.one/docs/api/v2
+  description: >-
+    The OpenAPI 3.0.0 document Cision publishes at developers.cision.one/docs/api/v2
+    is missing three things it needs to be usable as a contract: info.title and
+    info.version (both REQUIRED by the OpenAPI Specification) and a servers[] block.
+    This overlay records exactly what API Evangelist supplied in
+    openapi/cision-cisionone-openapi.yml, and where each value came from, so the
+    difference from what Cision actually publishes stays visible. The verbatim
+    document is preserved untouched at openapi/_original/.
+actions:
+  - target: $.info
+    description: >-
+      Supply the REQUIRED info.title and info.version, absent from the published
+      document. Title from the product name Cision uses for this API throughout its
+      own documentation; version from the /public/api/v2 path prefix and the
+      /docs/api/v2 reference URL.
+    update:
+      title: CisionOne API
+      version: '2'
+      x-apievangelist-note: >-
+        info.title and info.version are not present in the document Cision publishes.
+        Supplied by API Evangelist from the provider's own documentation.
+  - target: $
+    description: >-
+      Supply the servers[] block. Cision's help site states "All CisionOne API calls
+      are made under https://api.cision.one". Verified independently: an
+      unauthenticated GET of https://api.cision.one/public/api/v2/streams returns
+      HTTP 401 (auth required), which confirms the host and the path prefix are live.
+    update:
+      servers:
+        - url: https://api.cision.one
+          description: >-
+            Production. Base host stated in Cision's own help docs; absent from the
+            published spec. Verified: GET /public/api/v2/streams returns 401.
+  - target: $.info
+    description: Record the discovery provenance of the harvested document.
+    update:
+      x-apievangelist-source: https://developers.cision.one/docs/api/v2
+      x-apievangelist-source-note: >-
+        Cision serves no standalone spec file — developers.cision.one/openapi.json,
+        /openapi.yaml and /swagger.json all return 404. The document is embedded in
+        the server-rendered ReDoc page at /docs/api/v2 and was extracted from it
+        verbatim on 2026-08-13.
+x-not-applied:
+  description: >-
+    Gaps deliberately NOT patched, because filling them would invent contract that
+    Cision has not published. They are recorded here and in
+    conformance/cision-conformance.yml as findings to raise with the provider.
+  items:
+    - No error response (400/401/403/404/429) declares a content type or schema. No error envelope was authored.
+    - getStreams omits a 429 response even though the documented 10 req/min limit applies across all endpoints.
+    - Mention.impactScore is typed as `number` in components.schemas but the in-spec example returns an array of {score, grade}. The schema was left as published.
+    - The Mention schema is polymorphic in practice (online vs broadcast items carry different fields) but declares no discriminator or oneOf.

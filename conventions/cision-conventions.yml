@@ -1,0 +1,141 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/cision-cisionone-openapi.yml
+docs: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+name: Cision API Conventions
+description: >-
+  Cross-cutting request/response semantics for the CisionOne API and the Next
+  Generation Cision Communications Cloud API, read from the published OpenAPI at
+  developers.cision.one and from Cision's own help documentation. Both surfaces are
+  read-only reporting APIs over saved searches ("Mention Streams" in CisionOne,
+  "searches" in Communications Cloud) — there are no write operations, which is why
+  several conventions a transactional API would carry are genuinely absent here.
+authentication:
+  style: api-key-header
+  header: X-Auth-Token
+  see: authentication/cision-authentication.yml
+idempotency:
+  supported: false
+  reason: >-
+    Every published operation on both surfaces is a GET. There are no state-changing
+    operations, so there is no idempotency-key contract to document and none is
+    published. Recorded as an explicit false rather than omitted — an agent needs to
+    know the answer was checked. No Idempotency pointer is emitted in apis.yml.
+pagination:
+  supported: true
+  style: page-number
+  api: cision:cisionone-api
+  operations: [getMentions]
+  parameters:
+    - name: pagination[page]
+      required: true
+      default: 1
+      description: The page of results to return.
+    - name: pagination[page_size]
+      required: true
+      default: 10
+      maximum: 5000
+      description: Results per page.
+  ceiling:
+    max_results: 5000
+    rule: >-
+      The combined value of page and page_size cannot exceed 5000 mentions.
+      Exceeding it returns HTTP 400, not a truncated page.
+  response_fields: []
+  note: >-
+    No cursor, no next-page link and no total-count field are published. A client
+    must page by incrementing pagination[page] until an empty array comes back, and
+    must stay under the 5000-result ceiling. getStreams and getStreamStats are
+    unpaginated.
+  communications_cloud:
+    style: page-number
+    parameters: [page-num, page-size]
+    defaults: {page-num: 0, page-size: 100}
+    note: >-
+      The Communications Cloud API pages from 0 with hyphenated query parameters,
+      not from 1 with bracketed ones. The two Cision surfaces do not share a
+      pagination convention.
+filtering:
+  style: bracketed-query-parameters
+  required_range:
+    after: filter[range][after]
+    before: filter[range][before]
+    format: RFC 3339 date-time
+    constraint: The requested date range (before - after) must not exceed 366 days; a wider range returns HTTP 400.
+  note: >-
+    Date range is REQUIRED on getMentions and getStreamStats — there is no
+    "everything" call. Both bounds must be supplied on every request.
+sorting:
+  parameters:
+    - name: sort[field]
+      values: [advertisement_rate, audience, domain_authority, impact_score, sentiment, source.name, timestamp, word_count]
+    - name: sort[order]
+      values: [asc, desc]
+  note: Sorting is available on getMentions only.
+content_negotiation:
+  style: query-parameter
+  parameter: format
+  values: [json, csv]
+  required_on: [getMentions, getStreamStats]
+  optional_on: [getStreams]
+  note: >-
+    Response format is selected by a query parameter, not by the Accept header.
+    On getMentions and getStreamStats the format parameter is REQUIRED — omitting
+    it is a 400, not a JSON default.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: No user-defined metadata or custom-field surface is exposed on either API.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation-id response header is documented.
+out_of_band_response_data:
+  api: cision:cision-communications-cloud-api
+  mechanism: response header carrying a short-lived signed download URL
+  header: x-additional-info
+  expires: 300 seconds
+  description: >-
+    Readership values for online (non-broadcast, non-print) content are zeroed in
+    the JSON body by contract with Cision's data licensor. The full values are
+    delivered instead as a CSV at a presigned S3 URL returned in the x-additional-info
+    response header, which expires five minutes after issue. A client that wants
+    readership must follow that header immediately or re-call the endpoint.
+  docs: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+versioning:
+  style: uri-path
+  current: v2
+  cisionone_path_prefix: /public/api/v2
+  communications_cloud_path_prefix: /api/v2.2
+  note: >-
+    The two surfaces version independently. No version header, no date-pinning and
+    no published sunset policy. See lifecycle/cision-lifecycle.yml.
+error_envelope:
+  format: none
+  problem_json: false
+  note: >-
+    The published OpenAPI declares 400/401/403/404/429 responses with human-readable
+    descriptions and NO response body schema or content type. There is no documented
+    machine-readable error envelope and no RFC 9457 problem+json. An agent must
+    branch on the status code alone. See errors/cision-problem-types.yml.
+rate_limit_signaling:
+  limit: 10 requests per minute
+  keyed_on: [ip-address, api-key]
+  status_on_exhaustion: 429
+  headers: []
+  retry_after: undocumented
+  note: >-
+    Cision publishes the number and the 429 but no RateLimit-* / X-RateLimit-*
+    response headers and no Retry-After guidance, so a client cannot read remaining
+    budget at runtime and must self-throttle to roughly one request every six seconds.
+    See rate-limits/cision-rate-limits.yml.
+cross_origin:
+  cors: true
+  jsonp: false
+  source: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+cross_links:
+  authentication: authentication/cision-authentication.yml
+  errors: errors/cision-problem-types.yml
+  lifecycle: lifecycle/cision-lifecycle.yml
+  rate_limits: rate-limits/cision-rate-limits.yml
+  data_model: data-model/cision-data-model.yml

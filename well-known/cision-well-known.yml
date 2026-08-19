@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of the RFC 8615 /.well-known/ surface on every Cision host in apis.yml
+name: Cision Well-Known Discovery Probe
+description: >-
+  Probe of the /.well-known/ discovery surface on the CisionOne API host
+  (api.cision.one), the developer documentation host (developers.cision.one) and
+  the corporate website (www.cision.com). Cision serves no well-known document on
+  any host. No WellKnown or SecurityTxt pointer is emitted in apis.yml, because a
+  recorded absence is not a presence.
+result: none
+hosts:
+  - host: https://api.cision.one
+    role: CisionOne API base URL
+    served: 0
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://developers.cision.one
+    role: CisionOne API reference (ReDoc)
+    served: 0
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://www.cision.com
+    role: corporate website
+    served: 0
+    note: >-
+      The Adobe Experience Manager site answers 200 with the same HTML page shell
+      for several /.well-known/ paths. An HTML shell is not a document — these are
+      recorded as misses, not hits.
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, document: false, note: HTML page shell, not an OIDC discovery document}
+      - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, document: false, note: HTML page shell, not an RFC 8414 document}
+      - {path: /.well-known/api-catalog, status: 200, content_type: text/html, document: false, note: HTML page shell, not an RFC 9727 api-catalog}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+summary:
+  documents_served: 0
+  security_txt: false
+  oauth_metadata: false
+  openid_configuration: false
+  api_catalog: false
+  agent_card: false

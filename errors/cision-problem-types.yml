@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/cision-cisionone-openapi.yml
+docs: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+name: Cision Error Catalog
+description: >-
+  Error responses declared by the CisionOne API OpenAPI that Cision publishes at
+  developers.cision.one/docs/api/v2, plus the one error condition documented in
+  prose on Cision's help site. Derived from the spec — no error codes were invented.
+format: none
+problem_json: false
+envelope:
+  documented: false
+  note: >-
+    Every declared error response in the spec carries a description and NOTHING
+    else — no content, no schema, no example. Cision publishes no error body shape,
+    no error code registry and no RFC 9457 problem+json. Clients must branch on the
+    HTTP status code alone, and the 400 description is the only place the cause of a
+    failure is distinguished at all.
+problems:
+  - status: 400
+    title: Invalid request parameters
+    detail: >-
+      Returned when requested results exceed the 5000-mention ceiling
+      (pagination[page] x pagination[page_size]) or when the requested date range
+      (filter[range][before] - filter[range][after]) exceeds 366 days. Also returned
+      when the required format parameter is omitted.
+    remediation: >-
+      Narrow the date range to 366 days or fewer, keep page x page_size under 5000,
+      and always send format=json or format=csv.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getMentions
+      - openapi/cision-cisionone-openapi.yml#getStreamStats
+  - status: 400
+    title: Invalid status value
+    detail: Returned by getStreams for an invalid parameter value.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getStreams
+  - status: 401
+    title: Unauthorized User or Invalid Token
+    detail: The X-Auth-Token header is missing, malformed, or names a token that is not valid.
+    remediation: Re-issue the API token from CisionOne Settings and resend it on the X-Auth-Token header.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getMentions
+      - openapi/cision-cisionone-openapi.yml#getStreams
+      - openapi/cision-cisionone-openapi.yml#getStreamStats
+  - status: 403
+    title: Token does not have access to the API
+    detail: >-
+      The token authenticates, but the account behind it is not entitled to API
+      access. This is a commercial entitlement failure, not a scope failure — Cision
+      sells API access as a contract add-on. Distinguishing 403 from 401 is the only
+      authorization semantic the spec publishes.
+    remediation: Contact the Cision account team to add API access to the subscription.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getMentions
+      - openapi/cision-cisionone-openapi.yml#getStreams
+      - openapi/cision-cisionone-openapi.yml#getStreamStats
+  - status: 404
+    title: Invalid streamId
+    detail: The streamId path parameter does not name a Mention Stream visible to the authenticated organisation.
+    remediation: Call getStreams first and use an id from that list.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getMentions
+      - openapi/cision-cisionone-openapi.yml#getStreamStats
+  - status: 429
+    title: Too Many Requests
+    detail: >-
+      The 10 request/minute limit was exceeded. Cision's docs state the limit is
+      keyed on BOTH the caller's IP address and the API key, so two processes behind
+      one NAT share a budget.
+    remediation: >-
+      Self-throttle to roughly one request every six seconds and back off on 429.
+      No Retry-After or RateLimit-* header is published to guide the backoff.
+    source_operations:
+      - openapi/cision-cisionone-openapi.yml#getMentions
+      - openapi/cision-cisionone-openapi.yml#getStreamStats
+    note: >-
+      getStreams does NOT declare a 429 response in the spec even though the
+      documented limit applies "across all endpoints" — a spec/docs divergence
+      clients should not rely on.
+coverage:
+  operations_total: 3
+  operations_with_error_responses: 3
+  distinct_statuses: [400, 401, 403, 404, 429]
+  responses_with_schema: 0

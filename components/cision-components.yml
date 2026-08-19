@@ -1,0 +1,144 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/cision/websolutions
+docs: https://websolutions.ne.cision.com/
+name: Cision Web Solutions Components
+description: >-
+  Cision Web Solutions is Cision's embeddable client-side module library for
+  investor-relations and online-newsroom pages — release feeds, share graphs,
+  ownership charts, analyst estimates, insider transactions, calendars and
+  subscription forms that a customer drops into their own website. It is distinct
+  from the CisionOne and Communications Cloud REST APIs and is the only place Cision
+  ships front-end components a developer integrates. Published open source on GitHub
+  and to npm as `cision-websolutions`, with a live demo site carrying per-module
+  technical white papers.
+distribution:
+  npm: cision-websolutions
+  npm_url: https://www.npmjs.com/package/cision-websolutions
+  version: 4.3.0
+  published: '2020-05-18'
+  repository: https://github.com/cision/websolutions
+  demo_site: https://websolutions.ne.cision.com/
+  bundle: https://websolutions.ne.cision.com/Scripts/dist/Cision.Websolutions-latest.min.js
+  bundle_pinned: false
+  bundle_note: >-
+    The hosted bundle URL is unpinned (-latest.min.js), so a consumer loading it from
+    Cision cannot tell which build they are getting. The npm distribution is pinned
+    but has not been republished since 2020-05-18.
+  install: 'pnpm i cision-websolutions   # npm is explicitly unsupported — it flattens the tree and breaks the folder structure'
+  package_manager_note: >-
+    Cision's README states the package must be installed with pnpm; installing with
+    npm breaks the build.
+backing_api:
+  name: Cision Web Solutions Public API (papi)
+  base_url: https://publish.ne.cision.com/papi/
+  live: true
+  probe: {url: 'https://publish.ne.cision.com/papi/', http_status: 200, content_type: application/json, checked: '2026-08-13'}
+  authentication:
+    style: access key in the URL path
+    shape: 'papi/<Module>/<accessKey>/<Resource>'
+    provisioning: >-
+      Cision provisions a distinct accessKey per customer per module. There is no
+      published self-service issuance and no developer portal for this API.
+  specification: none
+  specification_note: >-
+    Cision publishes NO OpenAPI, schema or written endpoint reference for papi. The
+    endpoint paths recorded below were read from Cision's own first-party
+    open-source client bundle, not from documentation, and no request or response
+    shapes are asserted here because none are published. Per-module "technical white
+    papers" are linked from the demo site and are the only prose reference.
+  endpoints_observed:
+    - {module: Newsfeed, path: 'NewsFeed/{accessKey}/Releases'}
+    - {module: Newsfeed, path: 'NewsFeed/{accessKey}/Years'}
+    - {module: Newsroom, path: 'NewsRoom/{accessKey}/Medias'}
+    - {module: Newsroom, path: 'Newsroom/{accessKey}/Tags'}
+    - {module: Release, path: 'Release/{encryptedId}'}
+    - {module: Share, path: 'Share/{accessKey}/Releases'}
+    - {module: Sharegraph, path: 'ShareHistory/{shareHistoryKey}'}
+    - {module: Share calculator, path: 'ShareCalculator/{accessKey}'}
+    - {module: Ticker, path: 'Ticker/{accessKey}/Performance'}
+    - {module: Ticker, path: 'Ticker/{accessKey}/Trades'}
+    - {module: Ticker, path: 'Ticker/{accessKey}/Dividend'}
+    - {module: TotalReturn, path: 'TotalReturn/{accessKey}/Summary'}
+    - {module: TotalReturn, path: 'TotalReturn/{accessKey}/Detail'}
+    - {module: TotalReturn, path: 'TotalReturn/{accessKey}/Dividend'}
+    - {module: Ownership, path: 'Ownership/{accessKey}/ShareSizeGroups'}
+    - {module: Ownership, path: 'Ownership/{accessKey}/LargestGroupedShareHolders'}
+    - {module: Ownership, path: 'Ownership/{accessKey}/NewShareHolders'}
+    - {module: Ownership, path: 'Ownership/{accessKey}/ShareHolderAreas'}
+    - {module: Estimate, path: 'Estimate/{accessKey}/Recommendations'}
+    - {module: Estimate, path: 'Estimate/{accessKey}/RecommendationsHistorical'}
+    - {module: Estimate, path: 'Estimate/{accessKey}/Quarterly'}
+    - {module: Estimate, path: 'Estimate/{accessKey}/Historical'}
+    - {module: Insider, path: 'InsiderTrade/{accessKey}/TransactionsList'}
+    - {module: Calendar, path: 'Calendar/{accessKey}/Archive'}
+    - {module: Calendar, path: 'Calendar/{accessKey}/EventDetail'}
+    - {module: Calendar, path: 'Calendar/{accessKey}/EventDetailIcs'}
+    - {module: Printed Material, path: 'PrintedMaterial/{accessKey}/Archive'}
+    - {module: Printed Material, path: 'PrintedMaterial/{accessKey}/ItemDetail'}
+    - {module: Orderbook, path: 'OrderBook/{accessKey}/Items'}
+  subscription_endpoint:
+    path: https://publish.ne.cision.com/Subscription/SubscribeWithCaptcha
+    method: POST
+    content_type: application/x-www-form-urlencoded
+    required_fields: [subscriptionUniqueIdentifier, Replylanguage]
+    optional_fields: [language, phone number, e-mail, company]
+    captcha: 'Google reCAPTCHA is recommended by Cision; the endpoint can be provisioned without it on request'
+families:
+  - family: Press release distribution
+    components:
+      - {name: Release feeds, description: 'Press release feed for a customer newsroom. Available in JSON, XML and RSS. Updated within a maximum 2 minutes of a release being sent or removed.'}
+      - {name: Media feeds, description: 'Same shape as release feeds but for media files, with an additional MediaType filter (e.g. Image).'}
+      - {name: Release detail, description: Renders a single release by its encrypted id.}
+      - {name: Newsroom tags, description: Tag facets across newsroom content.}
+  - family: Investor relations — market data
+    components:
+      - {name: Sharegraph, description: 'Interactive share price chart built on Highstock, with configurable peers, indexes, currency and volume axis. Requires the customer to hold their own Highstock licence to modify the charts.'}
+      - {name: Ticker, description: Share performance, trades and dividend ticker.}
+      - {name: Share calculator, description: Lets a visitor calculate the change in value of a shareholding over time. Price data sourced from Millistream.}
+      - {name: Total return, description: Total return summary, detail and dividend views.}
+      - {name: Orderbook, description: Order book items.}
+  - family: Investor relations — ownership and analysis
+    components:
+      - {name: Ownership, description: 'Shareholder data rendered as Highcharts pie charts and tables — size groups, largest grouped shareholders, new shareholders, shareholder areas. Data sourced from Euroclear.'}
+      - {name: Estimate, description: 'Analyst estimates and recommendations — annual, quarterly, historical, plus a recommendations gradient bar. Data sourced from SME Direkt.'}
+      - {name: Insider, description: 'Insider transaction table. Data collected from Finansinspektionen, the Swedish FSA, keyed by company organisation number.'}
+  - family: Engagement
+    components:
+      - {name: Subscription, description: 'Press release subscription signup form posting to publish.ne.cision.com/Subscription/SubscribeWithCaptcha.'}
+      - {name: Calendar, description: 'Upcoming and archived financial calendar events created in Cision Point, with category filters, event detail and an .ics export.'}
+      - {name: Printed Material, description: 'Order form for print items defined in Cision Point, printed and mailed by Cision.'}
+technology:
+  framework: jQuery
+  templating: JSRender
+  styling: Bootstrap 4.2.1
+  charts: Highstock / Highcharts 7.x
+  loaders:
+    - {library: jQuery, version: 3.3.1, delivery: CDN}
+    - {library: Highstock, version: 7.0.3, delivery: CDN, licence: 'customer must hold their own Highstock licence to modify charts'}
+    - {library: JSRender, version: 1.0.1}
+    - {library: Moment.js, version: 2.24.0}
+    - {library: Bootstrap, version: 4.2.1}
+    - {library: Bootstrap datepicker, version: 1.8.0}
+    - {library: Font Awesome, version: 5.7.1}
+  note: >-
+    jQuery and Highcharts are loaded from CDN rather than bundled, to avoid
+    double-loading them on pages that already include them.
+localization:
+  full: [Swedish, English, Finnish]
+  partial: [Norwegian, German, Danish]
+  configuration: 'src/js/texts.js, keyed by the uiLanguage setting'
+configuration:
+  settings_file: src/js/settings.js
+  per_module_override: 'settings can be passed as an object to any module init()/render() call'
+  service_endpoint_setting: '//publish.ne.cision.com/papi/'
+assessment:
+  - >-
+    A genuine, substantial embeddable component surface — and by some distance the
+    most developer-facing thing Cision ships. It is also the oldest: the npm package
+    has not been republished since 2020 and the stack (jQuery, JSRender, Bootstrap 4,
+    Moment.js) has been in maintenance mode across the industry for years.
+  - >-
+    The backing papi is live and public but entirely unspecified. No OpenAPI, no
+    schema, no endpoint reference — a consumer's only contract is Cision's own
+    minified client and a set of PDF white papers behind a demo site menu.

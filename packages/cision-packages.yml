@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=cision
+name: Cision Packages
+description: >-
+  First-party Cision packages found on the public registries. THE HEADLINE FINDING
+  IS AN ABSENCE — Cision ships no client library for either of its APIs in any
+  language. Everything published under the Cision GitHub organisation and npm scope
+  is front-end tooling for Cision's own web products, not an SDK a developer would
+  use to call api.cision.one or api.trendkite.com.
+sdk_count: 0
+sdk_note: >-
+  No API client library exists on npm, PyPI, RubyGems, Packagist, crates.io,
+  Maven Central, NuGet or pkg.go.dev. `pip install cision` and `pip install
+  cisionone` both 404. Cision's own help documentation states the position plainly:
+  "We don't have any direct connectors for other tools with our Cision API, so the
+  development effort to pull from the Cision API and import that data into your
+  system of choice falls on you and your developers." No SDKs pointer is emitted in
+  apis.yml.
+registries_searched:
+  - {registry: npm, query: cision, first_party_hits: 3, sdk_hits: 0}
+  - {registry: pypi, query: 'cision, cisionone', status: 404, sdk_hits: 0}
+  - {registry: rubygems, query: cision, results: 0}
+  - {registry: packagist, query: cision, first_party_hits: 0, note: only third-party Laravel/WordPress packages that scrape Cision press-release RSS}
+  - {registry: crates.io, query: cision, first_party_hits: 0}
+  - {registry: 'maven central / nuget / pkg.go.dev', query: cision, first_party_hits: 0}
+packages:
+  - language: javascript
+    registry: npm
+    name: cision-websolutions
+    url: https://www.npmjs.com/package/cision-websolutions
+    repository: https://github.com/cision/websolutions
+    homepage: https://websolutions.ne.cision.com/
+    install: npm install cision-websolutions
+    official: true
+    api_client: false
+    version: 4.3.0
+    published: '2020-05-18'
+    description: >-
+      Cision Websolutions modules — embeddable widgets for displaying press
+      releases, financial reports and IR content on a customer's own website. Part
+      of Cision's Investor Relations / online newsroom product, not a client for the
+      CisionOne or Communications Cloud APIs.
+    note: Last published 2020-05-18, over five years before this check.
+  - language: typescript
+    registry: npm
+    name: '@cision/rover-ui'
+    url: https://www.npmjs.com/package/@cision/rover-ui
+    repository: https://github.com/cision/rover-ui
+    install: npm install @cision/rover-ui
+    official: true
+    api_client: false
+    version: 4.1.3
+    published: '2022-06-29'
+    description: Rover UI — the React component library Cision uses to build its own product front-ends.
+    note: Last published 2022-06-29.
+  - language: javascript
+    registry: npm
+    name: '@cision/eslint-plugin-react-custom-element-events'
+    url: https://www.npmjs.com/package/@cision/eslint-plugin-react-custom-element-events
+    repository: https://github.com/cision/eslint-plugin-react-custom-element-events
+    install: npm install --save-dev @cision/eslint-plugin-react-custom-element-events
+    official: true
+    api_client: false
+    version: 1.1.11
+    published: '2026-04-15'
+    description: ESLint plugin and test suite for React 19 custom-element event binding.
+    note: >-
+      The only recently-maintained first-party Cision package on any registry
+      (2026-04-15) — and it is internal lint tooling, not anything an API consumer
+      would install.
+deprecated_or_archived:
+  - {name: cision-sails-auth, registry: npm, version: 2.2.2, published: '2017-03-06', note: 'Cision fork of a Sails.js auth plugin; abandoned'}
+  - {name: cision-sails-permissions, registry: npm, version: 2.2.1, published: '2017-03-07', note: 'Cision fork of a Sails.js permissions plugin; abandoned'}
+source_code:
+  github_org: https://github.com/cision
+  public_repos_note: >-
+    The Cision GitHub organisation is real and public but holds forks of Sails.js
+    plugins, a Kong Helm chart, an NGINX ingress controller mirror, interview
+    exercises and the front-end libraries above. No repository contains an API
+    client, an OpenAPI definition or API example code.

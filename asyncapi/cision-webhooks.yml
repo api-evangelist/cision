@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/cision/websolutions
+docs: https://websolutions.ne.cision.com/
+name: Cision Event and Webhook Surface
+description: >-
+  Cision publishes no AsyncAPI document and no webhook surface on either of its REST
+  APIs. It does publish one genuine push mechanism, on a third product: the Cision
+  Web Solutions release feeds carry an optional "Notified Pull" ping that tells a
+  customer's server new content is available, and the same feeds are served as RSS
+  and XML. That is the entirety of Cision's event surface, and it is captured here
+  exactly as Cision describes it.
+spec_type: none
+asyncapi_published: false
+asyncapi_note: >-
+  No AsyncAPI, CloudEvents or event-catalog document exists on any Cision host. A
+  search of Cision's public help space (cision.atlassian.net, space CSM) for
+  "webhook" returns zero results, and neither the CisionOne OpenAPI nor the
+  Communications Cloud documentation declares a callback, webhook or subscription
+  operation.
+rest_api_event_surface:
+  - api: cision:cisionone-api
+    webhooks: false
+    streaming: false
+    polling_only: true
+    note: >-
+      Consuming new mentions requires polling getMentions on a date range, inside a
+      10 request/minute budget. There is no push, no long-poll, no cursor and no
+      "since" parameter other than the required date range.
+  - api: cision:cision-communications-cloud-api
+    webhooks: false
+    streaming: false
+    polling_only: true
+webhooks:
+  - name: Notified Pull
+    product: Cision Web Solutions
+    direction: outbound (Cision to customer)
+    transport: HTTP
+    payload_format: XML ping
+    description: >-
+      An optional alternative to polling the release feed. Cision notifies the
+      customer's server by XML ping when new content is published, which the
+      customer's server then pulls. Cision's own documentation states this reduces
+      delivery delay from the feed's maximum two minutes to under half a minute.
+    latency:
+      polling: up to 2 minutes
+      notified_pull: under 30 seconds
+    payload_schema: not published
+    signature_verification: not published
+    retry_policy: not published
+    subscription_management: 'provisioned by Cision; no self-service configuration API'
+    source: https://github.com/cision/websolutions#release-feeds
+    evidence: >-
+      "As a faster alternative to polling the feed, we provide a Notified Pull
+      solution where the server is notified of new content by an xml ping. This
+      brings the delay time down to less than half a minute." — Cision Web Solutions
+      README, github.com/cision/websolutions
+feeds:
+  - name: Release feed
+    product: Cision Web Solutions
+    formats: [json, xml, rss]
+    endpoint: 'https://publish.ne.cision.com/papi/NewsFeed/{accessKey}/Releases'
+    update_latency: 'maximum 2 minute delay after a release is sent or removed'
+    trigger_events: [release published, release removed]
+    description: >-
+      Press release feed for a customer's newsroom. The RSS variant is the closest
+      thing Cision publishes to a standards-based subscribe surface.
+  - name: Media feed
+    product: Cision Web Solutions
+    formats: [json, xml, rss]
+    endpoint: 'https://publish.ne.cision.com/papi/NewsRoom/{accessKey}/Medias'
+    filters: [MediaType]
+    description: Same shape as the release feed, for media files rather than press releases.
+  - name: CisionOne RSS feeds
+    product: CisionOne
+    formats: [rss]
+    docs: https://cision.atlassian.net/wiki/spaces/CSM/pages/25765479075/Settings+-+RSS+Feeds
+    description: >-
+      CisionOne can emit a Mention Stream as an RSS feed from the product settings.
+      Configured in the UI, not through the API, and not documented as a machine
+      contract.
+notification_integrations:
+  description: >-
+    CisionOne also delivers stream activity into third-party chat tools. These are
+    Cision-managed integrations configured in product settings, not a customer-facing
+    event contract — there is no way to point them at an arbitrary endpoint.
+  channels:
+    - {name: Slack, docs: 'https://cision.atlassian.net/wiki/spaces/CSM/pages/25765708171/Settings+-+Slack+Integration'}
+    - {name: Microsoft Teams, docs: 'https://cision.atlassian.net/wiki/spaces/CSM/pages/25765642547/Settings+-+MS+Teams+and+Slack+Integrations'}
+    - {name: Email alerts and scheduled reports, docs: 'https://cision.atlassian.net/wiki/spaces/CSM/pages/25768461266/Alerts+-+Newsletters+Overview'}
+assessment: >-
+  Notified Pull is a real provider-published push mechanism and is recorded as such,
+  but it is thin as an integration contract: no payload schema, no signature
+  verification, no retry policy and no self-service subscription management are
+  published. An agent cannot subscribe to anything at Cision programmatically.

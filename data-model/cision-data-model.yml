@@ -1,0 +1,140 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/cision-cisionone-openapi.yml
+name: Cision Data Model
+description: >-
+  Entity graph derived from components.schemas and the id-reference fields in the
+  CisionOne API OpenAPI. The model is small and read-only: a Stream is a saved
+  boolean search over Cision's media corpus, a Mention is one item that matched it,
+  and StreamStats is a server-side aggregation of the matching set over a date range.
+entities:
+  - name: Stream
+    label: Mention Stream
+    description: >-
+      A saved search configured in the CisionOne UI. The API cannot create, update
+      or delete one — streams are authored in the product and only read here.
+    schema: '#/components/schemas/Stream'
+    identifier: {field: id, type: integer}
+    returned_by: [getStreams]
+    fields:
+      - {name: id, type: integer}
+      - {name: label, type: string}
+      - {name: createdAt, type: string, format: date-time}
+      - {name: updatedAt, type: string, format: date-time}
+      - {name: queryStyle, type: string, note: 'e.g. boolean'}
+      - {name: keywords, type: string}
+      - {name: excludedKeywords, type: string}
+      - {name: defaultSentimentRating, type: number}
+      - {name: archived, type: boolean}
+      - {name: magazineContent, type: boolean}
+      - {name: onlineContent, type: boolean}
+      - {name: podcastContent, type: boolean}
+      - {name: printContent, type: boolean}
+      - {name: radioContent, type: boolean}
+      - {name: socialContent, type: boolean}
+      - {name: tvContent, type: boolean}
+    note: >-
+      The seven *Content booleans are the media-type mask on the stream and are the
+      only place the API exposes which media classes a search covers.
+  - name: Mention
+    label: Mention
+    description: >-
+      One item of media coverage that matched a Stream. Polymorphic in practice —
+      the published examples show an onlineArticle shape and a radioClip shape with
+      different optional fields (transcript, archivedLink and the four
+      local/national viewership fields appear only on broadcast items).
+    schema: '#/components/schemas/Mention'
+    identifier: {field: id, type: integer, format: int64}
+    returned_by: [getMentions]
+    scoped_by: {parameter: streamId, in: path}
+    fields:
+      - {name: id, type: integer}
+      - {name: type, type: string, note: 'e.g. onlineArticle, radioClip'}
+      - {name: timestamp, type: integer, format: int64, note: epoch milliseconds}
+      - {name: createdAt, type: string, format: date-time}
+      - {name: publishedAt, type: string, format: date-time}
+      - {name: medium, type: string, note: 'Online, Print, TV, Radio'}
+      - {name: title_summary, type: string}
+      - {name: author, type: string}
+      - {name: removed, type: boolean}
+      - {name: url, type: string, note: Absent for tweet mentions}
+      - {name: internalLink, type: string, note: 'Deep link into the Cision product at https://items.cision.one/<code>'}
+      - {name: source, type: string, note: The publication or outlet name — a string, not a referenced Outlet entity}
+      - {name: timeZone, type: string}
+      - {name: locationCountry, type: string}
+      - {name: locationState, type: string}
+      - {name: locationCity, type: string}
+      - {name: languageCode, type: string}
+      - {name: wordCount, type: integer}
+      - {name: sentiment, type: number}
+      - {name: keywordCounts, type: array, note: 'objects of {keyword, count}'}
+      - {name: audience, type: integer}
+      - {name: advertisingValue, type: number, note: Advertising Value Equivalency (AVE)}
+      - {name: impactScore, type: number, note: 'Spec types this as a number; the published example returns an array of {score, grade} — a spec/example divergence'}
+      - {name: domainAuthority, type: integer}
+      - {name: localViewershipAudience, type: number, note: broadcast only}
+      - {name: nationalViewershipAudience, type: number, note: broadcast only}
+      - {name: localViewershipAdValue, type: number, note: broadcast only}
+      - {name: nationalViewershipAdValue, type: number, note: broadcast only}
+      - {name: transcript, type: string, note: broadcast only}
+      - {name: archivedLink, type: string, note: broadcast only}
+      - {name: excerpt, type: string}
+      - {name: social, type: object, note: 'per-network share counts: x, facebook, reddit, pinterest'}
+  - name: StreamStats
+    label: Stream Statistics Summary
+    description: >-
+      A server-side aggregation over the Mentions matching a Stream in a date range.
+      Not a stored record — a computed projection.
+    schema: '#/components/schemas/StreamStats'
+    returned_by: [getStreamStats]
+    scoped_by: {parameter: streamId, in: path}
+    fields:
+      - {name: streamId, type: integer}
+      - {name: streamLabel, type: string}
+      - {name: after, type: string, format: date-time}
+      - {name: before, type: string, format: date-time}
+      - {name: media, type: array}
+      - {name: advertisingValues, type: array, note: 'per media label: {count, total, currency}'}
+      - {name: audiencesByType, type: array}
+      - {name: sentimentAggregation, type: array, note: 'sentiment histogram buckets: Negative, Trending Negative, Balanced, Trending Positive, Positive'}
+relationships:
+  - from: Stream
+    to: Mention
+    kind: has_many
+    via: streamId
+    evidence: 'getMentions is GET /public/api/v2/mentions/{streamId}'
+  - from: Mention
+    to: Stream
+    kind: belongs_to
+    via: streamId
+    evidence: Mentions are only addressable through a stream; there is no global mention lookup by id.
+  - from: Stream
+    to: StreamStats
+    kind: has_one
+    via: streamId
+    evidence: 'getStreamStats is GET /public/api/v2/streams/{streamId}/stats; StreamStats.streamId echoes the parent'
+  - from: StreamStats
+    to: Stream
+    kind: belongs_to
+    via: streamId
+identifiers:
+  style: opaque integers
+  prefixes: []
+  note: >-
+    No prefixed or typed ids (no str_/mn_ style). Stream ids and Mention ids are
+    bare integers in separate namespaces. The only URL-shaped identifier is
+    Mention.internalLink, a product deep link under items.cision.one.
+gaps:
+  - >-
+    source is a plain string on Mention. There is no Outlet or Journalist entity in
+    the API even though Cision's product is built on a 1.4M-contact media database —
+    the contacts/outlets side of the platform has no published API surface.
+  - >-
+    No Organisation/Account entity is exposed; the authenticated token implies it.
+  - >-
+    No write path. Streams are created in the UI, so an agent cannot provision the
+    thing every other operation depends on.
+coverage:
+  entities: 3
+  relationships: 4
+  schemas_in_spec: 3

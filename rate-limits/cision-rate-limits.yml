@@ -1,33 +1,106 @@
+generated: '2026-08-13'
+method: searched
+source: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
 name: Cision API Rate Limits
-description: Rate limiting policies for the CisionOne REST API. The API is throttled at the account level to ensure fair usage and platform stability. Requests are token-authenticated through the CisionOne Admin panel.
+description: >-
+  Published rate limits for Cision's two REST APIs. Both are throttled at 10 requests
+  per minute. The CisionOne documentation is explicit that the limit is keyed on BOTH
+  the caller's IP address AND the API key, so processes sharing an egress IP share a
+  budget. Cision publishes the number and the 429 but NO response headers, so a client
+  cannot read its remaining budget at runtime and must self-throttle.
 url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
+limit_count: 2
 limits:
-  - name: CisionOne API Request Rate
-    description: Maximum number of API requests allowed per minute across all endpoints. Requests may be throttled when this limit is exceeded.
-    scope: account
-    rate:
-      requests: 10
-      period: minute
-      note: Approximately 1 request every 6 seconds; throttling may be applied when exceeded
+  - name: CisionOne API request rate
+    api: cision:cisionone-api
+    description: >-
+      "Requests to the API may be limited to 10 requests per minute. It's limited by
+      both your IP address, and the API Key you're using. Requests that exceed this
+      limit may receive the standard 429 (Too Many Requests) HTTP response code."
+    scope: [ip-address, api-key]
+    window: minute
+    limit: 10
+    burst: null
+    effective_interval: approximately 1 request every 6 seconds
+    status_on_exhaustion: 429
+    applies_to: all endpoints
     endpoints:
-      - /mention-streams
-      - /mention-streams/{id}/mentions
-      - /mention-streams/{id}/summary
-  - name: Data Response Formats
-    description: The API supports both JSON and CSV response formats. Format selection may affect payload size and processing overhead.
-    formats:
-      - json
-      - csv
+      - GET /public/api/v2/streams
+      - GET /public/api/v2/mentions/{streamId}
+      - GET /public/api/v2/streams/{streamId}/stats
+    source: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+  - name: Cision Communications Cloud API request rate
+    api: cision:cision-communications-cloud-api
+    description: >-
+      "Requests to the API across all endpoints MAY BE throttled to a maximum of 10
+      requests per minute (1 request every 6 seconds). Requests which exceed the rate
+      limit MAY receive the standard 429 (Too Many Requests) HTTP response code.
+      Systems implementing a connection to the Cision API will need to handle this
+      response appropriately."
+    scope: [account]
+    window: minute
+    limit: 10
+    burst: null
+    effective_interval: 1 request every 6 seconds
+    status_on_exhaustion: 429
+    applies_to: all endpoints
+    endpoints:
+      - POST /api/login
+      - GET /api/v2.2/searches
+      - GET /api/v2.2/totalmentions
+      - GET /api/v2.2/stats
+    source: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+response_headers:
+  published: false
+  ratelimit_headers: []
+  retry_after: false
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After response header is documented on
+    either API, and none is declared in the OpenAPI Cision publishes. An agent gets
+    no runtime signal of remaining budget or reset time — only the 429 itself. Back
+    off by at least the full 60-second window.
+spec_coverage:
+  declared_429:
+    - getMentions
+    - getStreamStats
+  missing_429:
+    - getStreams
+  note: >-
+    getStreams does not declare a 429 response in the published OpenAPI even though
+    the documented limit applies "across all endpoints". Clients should handle 429 on
+    every operation regardless of what the spec declares.
+other_quotas:
+  - name: Mention result ceiling
+    api: cision:cisionone-api
+    operation: getMentions
+    rule: 'pagination[page] x pagination[page_size] cannot exceed 5000 mentions'
+    status_on_violation: 400
+    workaround: Split the query into shorter date windows.
+  - name: Date range ceiling
+    api: cision:cisionone-api
+    operations: [getMentions, getStreamStats]
+    rule: 'filter[range][before] minus filter[range][after] must not exceed 366 days'
+    status_on_violation: 400
+  - name: Presigned readership URL expiry
+    api: cision:cision-communications-cloud-api
+    rule: >-
+      The presigned CSV URL returned in the x-additional-info response header expires
+      299 seconds (5 minutes) after issue. Re-call the endpoint to mint a new one —
+      which costs another request against the rate limit.
 authentication:
-  type: token
-  description: API access requires a bearer token generated through CisionOne Admin settings. The token must be included in the Authorization header of each request.
-  setup_url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
-  header: Authorization
-  scheme: Bearer
+  type: apiKey
+  header: X-Auth-Token
+  see: authentication/cision-authentication.yml
+  note: >-
+    An earlier revision of this file recorded an "Authorization: Bearer" scheme. That
+    was wrong. The OpenAPI Cision publishes declares securitySchemes.api_key as an
+    apiKey in the header named X-Auth-Token, and Cision's own Communications Cloud
+    documentation uses the same header. Corrected 2026-08-13 against the published spec.
 notes:
-  - Rate limits are applied across all endpoints for a given account token
-  - The API requires pre-configured Mention Streams to be set up in CisionOne before data can be retrieved
-  - Specific rate limit headers are not publicly documented; contact Cision support for enterprise rate limit increases
-  - Rate limits may vary by contract tier and account type
+  - Cision publishes no documented path to a higher limit and no enterprise rate-limit tier.
+  - >-
+    Section 3.2 of Cision's Master Subscription Agreement makes violating "Supplier's
+    API rate limits" a contractual breach, not merely a throttled request.
+  - The API requires Mention Streams to be pre-configured in CisionOne before any data can be retrieved.

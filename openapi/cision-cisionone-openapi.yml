@@ -1,0 +1,559 @@
+openapi: 3.0.0
+info:
+  title: CisionOne API
+  description: API
+  version: '2'
+  x-apievangelist-note: info.title and info.version are absent from the spec Cision publishes at https://developers.cision.one/docs/api/v2;
+    supplied here by API Evangelist from the provider docs. See overlays/cision-cisionone-overlay.yaml.
+servers:
+- url: https://api.cision.one
+  description: 'Production. Base host stated in Cision''s own help docs ("All CisionOne API calls are made under https://api.cision.one");
+    absent from the published spec. Verified: GET https://api.cision.one/public/api/v2/streams returns 401.'
+paths:
+  /public/api/v2/mentions/{streamId}:
+    get:
+      tags:
+      - mentions
+      summary: Returns a list of mentions for a stream
+      operationId: getMentions
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        description: The API Token
+        required: true
+        schema:
+          type: string
+      - name: streamId
+        in: path
+        description: The stream to search on
+        required: true
+        schema:
+          type: integer
+      - name: filter[range][after]
+        in: query
+        description: The beginning of the date range to search. The requested date range (before - after) must not exceed
+          366 days.
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: filter[range][before]
+        in: query
+        description: The end of the date range to search. The requested date range (before - after) must not exceed 366 days.
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: pagination[page]
+        in: query
+        description: The page of the results to return
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: pagination[page_size]
+        in: query
+        description: The number of results to return per page. The combined value of page and page_size cannot exceed the
+          maximum results of 5000 mentions
+        required: true
+        schema:
+          type: integer
+          default: 10
+          maximum: 5000
+      - name: sort[field]
+        in: query
+        description: The field to sort by
+        schema:
+          type: string
+          enum:
+          - advertisement_rate
+          - audience
+          - domain_authority
+          - impact_score
+          - sentiment
+          - source.name
+          - timestamp
+          - word_count
+      - name: sort[order]
+        in: query
+        description: The order to sort by
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: format
+        in: query
+        description: JSON or CSV
+        required: true
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mention'
+              example:
+              - id: 1233
+                type: onlineArticle
+                timestamp: 1722470400194
+                createdAt: '2024-08-02T02:08:26.000Z'
+                publishedAt: '2024-08-02T02:08:26.000Z'
+                medium: Online
+                title: A particularly interesting article title
+                author: Article Author
+                url: https://example.com/articles/foo.html
+                internalLink: https://items.cision.one/ASDASDASDASD
+                source: Sydney Morning Herald
+                timeZone: Australia/Sydney
+                locationCountry: Australia
+                locationState: New South Wales
+                locationCity: Sydney
+                languageCode: en-AU
+                sentiment: -0.1
+                keywords:
+                - foo
+                - bar
+                wordCount: 2493
+                audience: 250000
+                advertisingValue: 100
+                impactScore:
+                - score: 223.92
+                  grade: Medium
+                domainAuthority: 75
+                social:
+                  x: 50
+                  facebook: 10
+                  reddit: 3
+                  pinterest: 0
+                excerpt: This is the excerpt of the article.
+              - id: 104
+                type: radioClip
+                timestamp: 1718418776104
+                createdAt: '2025-11-27T21:16:50.000Z'
+                publishedAt: '2024-06-15T12:32:56.000+10:00'
+                medium: Radio
+                author: Test
+                url: http://radio_clip_url6
+                internalLink: https://items.cision.one/RA00000104
+                source: RadioStation19
+                timeZone: Australia/Sydney
+                locationCountry: Australia
+                locationState: New South Wales
+                locationCity: Sydney
+                languageCode: en-AU
+                sentiment: -0.1
+                keywords:
+                - foo
+                - bar
+                wordCount: 2493
+                audience: 250000
+                advertisingValue: 100
+                impactScore:
+                - score: 223.92
+                  grade: Medium
+                domainAuthority: 75
+                localViewershipAudience: 50000
+                nationalViewershipAudience: 100000
+                localViewershipAdValue: 250.51
+                nationalViewershipAdValue: 500.751
+                transcript: This is the transcript of the clip.
+                archivedLink: https://example.com/archived-broadcast-link
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mention'
+        '400':
+          description: Invalid request parameters (for example, requested results exceed 5000 mentions or requested date range
+            exceeds 366 days)
+        '401':
+          description: Unauthorized User or Invalid Token
+        '403':
+          description: Token does not have access to the API
+        '404':
+          description: Invalid streamId
+        '429':
+          description: Too Many Requests
+      security:
+      - api_key:
+        - read:api
+  /public/api/v2/streams:
+    get:
+      tags:
+      - stream
+      summary: Returns an organisation's Streams
+      description: Multiple status values can be provided with comma separated strings
+      operationId: getStreams
+      parameters:
+      - name: format
+        in: query
+        description: JSON or CSV
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stream'
+              example:
+              - id: 3349
+                label: The Daily Show
+                createdAt: '2023-06-14T02:34:56.000Z'
+                updatedAt: '2023-06-14T02:34:56.000Z'
+                queryStyle: boolean
+                keywords: foo
+                excludedKeywords: bar
+                defaultSentimentRating: 0
+                archived: false
+                magazineContent: true
+                onlineContent: true
+                podcastContent: true
+                printContent: true
+                radioContent: true
+                socialContent: true
+                tvContent: true
+        '400':
+          description: Invalid status value
+        '401':
+          description: Unauthorized User or Invalid Token
+        '403':
+          description: Token does not have access to the API
+      security:
+      - api_key:
+        - read:api
+  /public/api/v2/streams/{streamId}/stats:
+    get:
+      tags:
+      - stream
+      summary: Get a statistics summary for a stream
+      description: Returns a statistics summary for a stream.
+      operationId: getStreamStats
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        description: The API Token
+        required: true
+        schema:
+          type: string
+      - name: streamId
+        in: path
+        description: The stream to search on
+        required: true
+        schema:
+          type: integer
+      - name: filter[range][after]
+        in: query
+        description: The beginning of the date range to search. The requested date range (before - after) must not exceed
+          366 days.
+        required: true
+        explode: true
+        schema:
+          type: string
+      - name: filter[range][before]
+        in: query
+        description: The end of the date range to search. The requested date range (before - after) must not exceed 366 days.
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: format
+        in: query
+        description: JSON or CSV
+        required: true
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamStats'
+              example:
+                streamId: 3349
+                streamLabel: The Daily Show
+                before: '2023-06-14T02:34:56.000Z'
+                after: '2023-06-14T02:34:56.000Z'
+                media:
+                - Online
+                - Print
+                - TV
+                - Radio
+                advertisingValues:
+                - label: TV
+                  values:
+                    count: 100
+                    total: 100
+                - label: Radio
+                  values:
+                    count: 100
+                    total: 100
+                audiencesByType:
+                - label: TV
+                  value: 100
+                - label: Radio
+                  value: 100
+                sentimentAggregation:
+                - label: Negative
+                  values:
+                    from: 0
+                    to: 10
+                    doc_count: 100
+                - label: Trending Negative
+                  values:
+                    from: 0
+                    to: 10
+                    doc_count: 100
+                - label: Balanced
+                  values:
+                    from: 0
+                    to: 20
+                    doc_count: 100
+                - label: Trending Positive
+                  values:
+                    from: 30
+                    to: 40
+                    doc_count: 100
+                - label: Positive
+                  values:
+                    from: 40
+                    to: 50
+                    doc_count: 100
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamStats'
+        '400':
+          description: Invalid request parameters (for example, requested date range exceeds 366 days)
+        '401':
+          description: Unauthorized User or Invalid Token
+        '403':
+          description: Token does not have access to the API
+        '404':
+          description: Invalid streamId
+        '429':
+          description: Too Many Requests
+      security:
+      - api_key:
+        - read:api
+components:
+  schemas:
+    Mention:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        timestamp:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date-time
+        publishedAt:
+          type: string
+          format: date-time
+        medium:
+          type: string
+        title_summary:
+          type: string
+        author:
+          type: string
+        removed:
+          type: boolean
+        url:
+          type: string
+          description: Public URL for the mention when available. Not present for tweet mentions.
+        internalLink:
+          type: string
+        source:
+          type: string
+        timeZone:
+          type: string
+        locationCountry:
+          type: string
+        locationState:
+          type: string
+        locationCity:
+          type: string
+        languageCode:
+          type: string
+        wordCount:
+          type: integer
+          format: int64
+        sentiment:
+          type: number
+        keywordCounts:
+          type: array
+          items:
+            type: object
+            properties:
+              keyword:
+                type: string
+              count:
+                type: integer
+                format: int64
+        audience:
+          type: integer
+          format: int64
+        advertisingValue:
+          type: number
+        impactScore:
+          type: number
+        localViewershipAudience:
+          type: number
+          description: Local viewership audience
+        nationalViewershipAudience:
+          type: number
+          description: National viewership audience
+        localViewershipAdValue:
+          type: number
+          description: Local viewership advertising value
+        nationalViewershipAdValue:
+          type: number
+          description: National viewership advertising value
+        transcript:
+          type: string
+          description: Transcript of the clip
+        archivedLink:
+          type: string
+          nullable: true
+          description: 'Shareable private link to the archived broadcast. Only present for tveyes-broadcast content.
+
+            '
+        excerpt:
+          type: string
+          nullable: true
+          description: 'Excerpt/summary of the mention. Present for Online, Print, and Magazine content when the relevant
+            feature flag (report_online_summary for online, report_print_summary for print/magazine) is enabled for the organisation.
+            Null when the feature is disabled or the content type does not support it.
+
+            '
+      xml:
+        name: Order
+    Stream:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        label:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        queryStyle:
+          type: string
+          enum:
+          - boolean
+          - keywords
+        keywords:
+          type: string
+        excludedKeywords:
+          type: string
+        contentTypes:
+          type: object
+          properties:
+            onlineContent:
+              type: boolean
+            printContent:
+              type: boolean
+            magazineContent:
+              type: boolean
+            podcastContent:
+              type: boolean
+            tvContent:
+              type: boolean
+            radioContent:
+              type: boolean
+            socialContent:
+              type: boolean
+        defaultSentimentRating:
+          type: number
+    StreamStats:
+      type: object
+      properties:
+        streamId:
+          type: integer
+        streamLabel:
+          type: string
+        after:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        media:
+          type: array
+          items:
+            type: string
+        advertisingValues:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              values:
+                type: object
+                properties:
+                  count:
+                    type: number
+                  total:
+                    type: number
+                  currency:
+                    type: string
+        audiencesByType:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              value:
+                type: number
+        sentimentAggregation:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              values:
+                type: object
+                properties:
+                  from:
+                    type: number
+                  to:
+                    type: number
+                  doc_count:
+                    type: number
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Auth-Token
+      in: header

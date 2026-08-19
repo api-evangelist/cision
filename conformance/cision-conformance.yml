@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/cision-cisionone-openapi.yml
+docs: https://www.cision.com/legal/security-statement/
+name: Cision Conformance
+description: >-
+  Cross-cutting standards and compliance posture for Cision's published APIs.
+  Standard conformance is derived from the OpenAPI Cision publishes at
+  developers.cision.one; the compliance section is searched from Cision's own legal
+  pages. Cision names no third-party security certification for itself.
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: >-
+      Cision publishes an OpenAPI 3.0.0 document rendered with ReDoc at
+      https://developers.cision.one/docs/api/v2. It parses, declares 3 operations
+      with unique operationIds, tags, summaries, request parameters, response
+      schemas and in-spec examples.
+    gaps:
+      - info.title and info.version are missing (both REQUIRED by the OpenAPI Specification)
+      - servers[] is absent, so the document does not name the host it describes
+  - id: oauth2
+    conforms: false
+    evidence: securitySchemes declares apiKey only; no oauth2 flows on either surface
+  - id: oidc
+    conforms: false
+  - id: mtls
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      No error response in the spec declares a content type or schema; no
+      application/problem+json anywhere in the contract
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: no deprecation or sunset policy published
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: '/.well-known/security.txt returns 404 on api.cision.one, developers.cision.one and www.cision.com'
+  - id: rfc8414-oauth-metadata
+    conforms: false
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: '/.well-known/api-catalog is 404 on the API hosts; www.cision.com answers 200 with an HTML page shell, not a catalog document'
+  - id: asyncapi
+    conforms: false
+    evidence: no event, streaming or webhook surface is published; a Confluence search of the help space for "webhook" returns zero results
+  - id: idempotency-key
+    conforms: false
+    evidence: read-only API; no write operations exist to be made idempotent
+  - id: pagination
+    conforms: true
+    evidence: 'page-number pagination on getMentions via pagination[page] / pagination[page_size], with a documented 5000-result ceiling'
+  - id: content-negotiation
+    conforms: partial
+    evidence: >-
+      JSON and CSV are both offered, but selected by a required `format` query
+      parameter rather than by the Accept header
+  - id: json-schema
+    conforms: true
+    evidence: components.schemas defines Mention, Stream and StreamStats, referenced by $ref from every 200 response
+  - id: gdpr
+    conforms: true
+    evidence: >-
+      Cision publishes a Customer Data Processing Agreement
+      (https://www.cision.com/legal/customerdpa/) and a data privacy notice at
+      privacy.cision.com; a named privacy contact (privacy@cision.com) is published.
+  - id: hipaa
+    conforms: partial
+    evidence: >-
+      Cision publishes a Business Associate Agreement
+      (https://www.cision.com/legal/business-associate-agreement/), which offers the
+      BAA a covered entity needs. This is a contractual instrument, not an audited
+      certification.
+  - id: soc2
+    conforms: false
+    evidence: >-
+      IMPORTANT DISTINCTION. Cision's Security Statement says "These data centers
+      have completed a Service Organization Controls (SOC) 2 Type II audit" — the
+      claim is about the third-party data centres that host Cision, NOT about Cision
+      itself. Cision publishes no SOC 2 report, bridge letter or attestation of its
+      own. Recorded as false so the data-centre claim is not silently promoted into
+      a provider certification.
+  - id: iso-27001
+    conforms: false
+    evidence: not claimed anywhere on cision.com/legal or the Security Statement
+  - id: pci-dss
+    conforms: false
+  - id: fedramp
+    conforms: false
+compliance_program:
+  published: true
+  url: https://www.cision.com/legal/security-statement/
+  documents:
+    - {name: Security Statement, url: 'https://www.cision.com/legal/security-statement/'}
+    - {name: Master Subscription Agreement, url: 'https://www.cision.com/legal/msa/'}
+    - {name: Customer Data Processing Agreement, url: 'https://www.cision.com/legal/customerdpa/'}
+    - {name: Business Associate Agreement (HIPAA), url: 'https://www.cision.com/legal/business-associate-agreement/'}
+    - {name: Service Appendices, url: 'https://www.cision.com/legal/service-appendices/'}
+    - {name: Governance Documents (anti-corruption, whistleblowing, code of ethics, modern slavery, supplier code, SB 261 climate disclosure), url: 'https://www.cision.com/legal/governance-documents/'}
+    - {name: Cision and Brandwatch Artificial Intelligence Code of Ethics, url: 'https://www.cision.com/legal/cision-and-brandwatch-artificial-intelligence-code-of-ethics/'}
+    - {name: Privacy Policy, url: 'https://www.cision.com/legal/privacy-policy/'}
+  certifications: []
+  certifications_note: >-
+    Cision publishes a substantive written security and governance program covering
+    information security policy, physical security, change management, vendor
+    management, audit logging, vulnerability and patch management, access control,
+    secure SDLC (including penetration testing), incident response and BC/DR — but
+    names no third-party certification held by Cision. The only audited claim on the
+    page belongs to its data-centre providers.
+  trust_center: false
+  trust_center_note: 'trust.cision.com and security.cision.com do not resolve; www.cision.com/trust/ and /security/ return 404'
+  vulnerability_disclosure: false
+  vulnerability_disclosure_note: >-
+    No security.txt, no responsible-disclosure page, no bug bounty program
+    (HackerOne / Bugcrowd / Intigriti) and no published security@ contact were found.
+    The only published contact channel is privacy@cision.com, which is a privacy
+    contact, not a vulnerability report intake. No Security or VulnerabilityDisclosure
+    pointer is emitted in apis.yml.

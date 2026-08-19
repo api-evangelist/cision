@@ -1,0 +1,46 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/cision-cisionone-openapi.yml + https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+name: Cision Agent Skills
+description: >-
+  Packaged operating instructions for Cision's two published REST APIs. Every step is
+  grounded in a real operationId from the OpenAPI Cision publishes at
+  developers.cision.one, or in an endpoint documented verbatim on Cision's own help
+  site. Cision publishes no skills, AGENTS.md or agent documentation of its own — a
+  search of its help space returns nothing for MCP or agents.
+skills:
+  - file: cision-pull-mention-stream-coverage.md
+    name: Pull media coverage from a CisionOne Mention Stream
+    api: openapi/cision-cisionone-openapi.yml
+    operations: [getStreams, getMentions]
+    covers: >-
+      Stream discovery, the required date-range and format parameters, page-number
+      pagination from 1, the hard 5000-result ceiling and the date-splitting
+      workaround, the 10 req/min budget keyed on IP and key, and the polymorphic
+      Mention shape (broadcast vs online fields, missing url on tweets, impactScore
+      schema/example divergence).
+  - file: cision-report-earned-media-metrics.md
+    name: Report earned media metrics for a CisionOne stream
+    api: openapi/cision-cisionone-openapi.yml
+    operations: [getStreams, getStreamStats]
+    covers: >-
+      Server-side aggregation as the rate-limit-efficient path, the five named
+      sentiment histogram buckets, AVE semantics, period-over-period comparison, and
+      the online-readership zeroing that must not be reported as a real measurement.
+  - file: cision-communications-cloud-authenticate-and-export.md
+    name: Authenticate and export from the Cision Communications Cloud API
+    api: https://api.trendkite.com
+    operations: [POST /api/login, GET /api/v2.2/searches, GET /api/v2.2/totalmentions, GET /api/v2.2/stats]
+    covers: >-
+      Username/password to access_token exchange, the X-Auth-Token header, 0-indexed
+      pagination (the opposite of CisionOne), the type filter on /stats, and the
+      five-minute presigned x-additional-info CSV side-channel that carries the real
+      readership values.
+notes:
+  - >-
+    All three skills are read-only. Cision publishes no write operation on either
+    surface, so no skill creates, updates or deletes anything.
+  - >-
+    The two APIs differ in base host, path prefix, pagination base and parameter
+    style. The skills deliberately keep them separate rather than presenting one
+    Cision API.

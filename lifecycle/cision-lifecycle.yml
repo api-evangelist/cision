@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+name: Cision API Lifecycle
+description: >-
+  Versioning, deprecation, SLA and status posture for Cision's two published API
+  surfaces. Cision versions in the URI path but publishes no deprecation policy, no
+  Sunset/Deprecation header support, no public SLA and no customer-facing status
+  page. Absences below are recorded because they were checked, not assumed.
+versioning:
+  scheme: uri-path
+  apis:
+    - api: cision:cisionone-api
+      current: v2
+      path_prefix: /public/api/v2
+      spec: openapi/cision-cisionone-openapi.yml
+      note: >-
+        The reference at developers.cision.one/docs/api/v2 is the only version
+        served; /docs/api/v1 and /docs/api/v3 both return 404, so no earlier or
+        later reference is published alongside it.
+    - api: cision:cision-communications-cloud-api
+      current: v2.2
+      path_prefix: /api/v2.2
+      docs: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+  version_header: false
+  date_pinning: false
+  note: The two surfaces version independently and share no version line.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  advance_notice: null
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support and no
+    stated notice period were found on the developer reference, the help site or the
+    Master Subscription Agreement. No Deprecation pointer is emitted in apis.yml.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  published: false
+  note: >-
+    The public Master Subscription Agreement (https://www.cision.com/legal/msa/)
+    sets commercial terms but publishes no uptime commitment or service credit
+    schedule; any SLA is negotiated in the Order. Section 3.2 of the MSA does make
+    respecting "Supplier's API rate limits" a contractual obligation on the customer.
+status_page:
+  url: https://oneuptime.cision.com/
+  public: false
+  http_status: 200
+  checked: '2026-08-13'
+  note: >-
+    oneuptime.cision.com resolves and returns 200, but the rendered page is titled
+    "Cision Internal" and is a JavaScript application that shows no component or
+    incident state to an anonymous visitor. It is retained as the StatusPage pointer
+    already present in apis.yml because it is the only status surface Cision names,
+    but it does not function as a public status page and no incident history,
+    subscribe option or component list is readable without a login.
+support:
+  help_center: https://cision.atlassian.net/wiki/spaces/CSM/overview
+  contact: https://www.cision.com/contact-us/
+  developer_support_channel: null
+  note: >-
+    There is no developer-specific support channel, forum, or community. API
+    questions route through the same customer-service help site and account team as
+    the rest of the product.
+maturity:
+  api_docs_last_updated: '2025-03-07'
+  spec_completeness_gaps:
+    - info.title and info.version are absent from the published OpenAPI
+    - servers[] is absent from the published OpenAPI
+    - no error response carries a schema or content type
+    - getStreams omits the 429 response that the documented rate limit implies
+    - Mention.impactScore is typed as a number but the published example returns an array

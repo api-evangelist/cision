@@ -1,0 +1,88 @@
+generated: '2026-08-13'
+method: searched
+source: https://cision.atlassian.net/wiki/spaces/CSM/pages/27828846642/Newsletter+February+2026
+name: CisionOne Change Log
+description: >-
+  Cision publishes a dated monthly product release note series inside its public
+  Confluence help site, grouped under the sidebar section "What's new in CisionOne?".
+  It is a PRODUCT changelog, not an API changelog — no entry in the series covers
+  the CisionOne API contract, and Cision publishes no separate API changelog,
+  release-notes feed, or version history for /public/api/v2.
+url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25765216446/Next+Generation+Cision+Communications+Cloud
+scheme:
+  style: dated monthly release notes
+  cadence: monthly
+  format: Confluence page per month
+  covers: product (CisionOne platform)
+  covers_api_contract: false
+  versioned_entries: false
+current_version: null
+first_entry: '2024-12'
+latest_entry: '2026-02'
+entry_count: 15
+staleness:
+  latest_entry_date: '2026-02-18'
+  checked: '2026-08-13'
+  note: >-
+    The series ran unbroken monthly from December 2024 to February 2026 and then
+    stopped. No March-August 2026 entry exists. Six consecutive months missing from
+    a previously monthly cadence.
+entries:
+  - date: '2026-02'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27828846642/Newsletter+February+2026
+    breaking: false
+    highlights:
+      - Social — LinkedIn @mentioned and shared posts surfaced in CisionOne Social
+      - Monitoring — Advanced Filters accept boolean queries in the keyword filter; locations can be included and excluded together
+      - Instant Insights — Coverage Volume & Stock Price chart adds NASDAQ alongside NYSE
+      - Monitoring — Outlet/Influencer sidebar opens in-place from a journalist or source
+      - Outreach — profile previews (bio, email, sector) inside Monitoring
+      - Mention Stream search bar in the left-hand menu
+  - date: '2026-01'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27697479915/Newsletter+January+2026
+    breaking: false
+    highlights:
+      - Social — TikTok @mentions on posts, comments and replies
+      - Outreach — new Tier filter ranking journalists and outlets by editorial status, reach and engagement
+      - Social — blog content tracked with sentiment and a rolling six-month archive
+  - date: '2025-12'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27569455116/Newsletter+December+2025
+    breaking: false
+    highlights:
+      - AI Focus Profiles — brand, tone, competitors and key messages applied consistently by the AI Assistant
+      - Bulk add up to 40 URLs at once to a Mention Stream
+      - Instant Insights — new charts across Monitoring, Social and Outreach
+      - Brand Profiles — expanded report colour palette
+      - Outreach — build contact lists from email engagement status
+      - Bluesky — sentiment on new posts from 20 November, themes from 1 December
+  - date: '2025-11'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27477049398/Newsletter+November+2025
+  - date: '2025-10'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27319664653/Newsletter+October+2025
+  - date: '2025-09'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27232141335/Newsletter+September+2025
+  - date: '2025-08'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27173683243/Newsletter+August+2025
+  - date: '2025-07'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27123908614/Newsletter+July+2025
+  - date: '2025-06'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27075674122/Newsletter+June+2025
+  - date: '2025-05'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/27008270411/Newsletter+May+2025
+  - date: '2025-04'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26941227039/Newsletter+April+2025
+  - date: '2025-03'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26888044567/Newsletter+March+2025
+  - date: '2025-02'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26793312274/Newsletter+-+February+2025
+  - date: '2025-01'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26739343366/Newsletter+-+January+2025
+  - date: '2024-12'
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26639500073/Newsletter+-+December+2024
+api_documentation_currency:
+  - page: CisionOne - API
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API
+    last_updated: '2025-03-07'
+  - page: Settings - Cision API
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API
+    last_updated: '2024-12-13'

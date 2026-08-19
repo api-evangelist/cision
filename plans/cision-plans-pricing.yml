@@ -1,131 +1,114 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.cision.com/pricing/
 name: Cision Plans and Pricing
-description: Cision offers custom enterprise pricing across several product tiers. All platform pricing requires a sales consultation and annual contract commitment. No public self-serve pricing is available for the main CisionOne platform or API access.
-url: https://www.cision.com/pricing/
+description: >-
+  Cision publishes NO pricing for CisionOne, the CisionOne API, or the Cision
+  Communications Cloud. https://www.cision.com/pricing/ redirects (200 via 302) to
+  https://www.cision.com/request-pricing/, a sales-contact form. Every platform
+  quote is custom, sales-led and annual, and API access is a contract entitlement
+  rather than a purchasable line item — a token whose account lacks it receives HTTP
+  403 "Token does not have access to the API". The only Cision-family products with
+  published, self-serve prices are the entry-level distribution wires, recorded below
+  with the figures live on those pages today.
+url: https://www.cision.com/request-pricing/
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
+plan_count: 5
+api_pricing_published: false
+api_pricing_note: >-
+  There is no API price, no metered rate, no request-quota tier and no overage
+  schedule anywhere on Cision's public surface. The only published usage constraint
+  is the 10 request/minute rate limit, which is a throttle, not a plan boundary.
 plans:
   - name: CisionOne Platform
-    description: Full-featured PR and earned media platform including media monitoring, journalist database, social listening, outreach CRM, and analytics. API access is included as an add-on or enterprise feature.
+    description: >-
+      Cision's flagship PR and earned-media platform — media monitoring, journalist
+      and influencer database, social listening, outreach CRM and analytics. REST API
+      access is an entitlement on the enterprise contract.
     url: https://www.cision.com/cisionone/
+    published_price: false
     pricing:
       model: custom
       period: annual
-      range:
-        low: 10000
-        high: 30000
-        currency: USD
-        note: Custom quotes required; pricing varies by users, modules, and usage
+      quote_url: https://www.cision.com/request-pricing/
+      note: >-
+        No public price. Requires a sales consultation and an annual commitment. The
+        Master Subscription Agreement states all fees are invoiced annually in
+        advance and are non-cancellable and non-refundable unless an Order says
+        otherwise.
     features:
-      - Media monitoring across print, digital, broadcast, and social
-      - Journalist and influencer database (1.4M+ contacts)
-      - Social listening and management
-      - Earned media analytics and reporting
+      - Media monitoring across print, digital, broadcast and social
+      - Journalist and influencer database
+      - Social listening and management (Cision Social Listening, powered by Brandwatch)
+      - Earned media analytics and reporting (Instant Insights)
       - Outreach CRM and campaign management
-      - AI-powered writing assistance (Amplify AI)
-      - REST API access for data integration
-      - BI platform integration (Tableau, PowerBI, Domo)
-  - name: Journalist Database Only
-    description: Access to Cision's media contacts database without the full monitoring suite.
-    url: https://www.cision.com/media-database/
+      - AI assistance (CisionOne AI / AI Focus Profiles)
+      - REST API access for BI integration (contract entitlement)
+  - name: Next Generation Cision Communications Cloud
+    description: The predecessor/parallel platform whose API is served on api.trendkite.com.
+    url: https://cision.atlassian.net/wiki/spaces/CSM/pages/25765216446/Next+Generation+Cision+Communications+Cloud
+    published_price: false
     pricing:
       model: custom
       period: annual
-      range:
-        low: 5700
-        high: 6000
-        currency: USD
-        note: Estimated range; requires sales consultation
-    features:
-      - 1.4M+ journalist and influencer contacts
-      - Media list building and management
-      - Contact search and filtering
+      quote_url: https://www.cision.com/request-pricing/
   - name: PR Newswire Distribution
-    description: Press release distribution through PR Newswire wire service. Pay-per-release model with mandatory annual membership.
+    description: Press release distribution over the PR Newswire wire service.
     url: https://www.cision.com/pr-distribution-and-placement/prnewswire/
+    published_price: false
     pricing:
       model: per-release
-      membership:
-        cost: 195
-        currency: USD
-        period: annual
-      tiers:
-        - name: Local Release
-          cost: 350
-          currency: USD
-          per: release
-        - name: National Release
-          cost: 805
-          currency: USD
-          per: release
-        - name: Global Distribution
-          cost: 8700
-          currency: USD
-          per: release
-        - name: Image Attachment
-          cost: 325
-          currency: USD
-          per: image
-    features:
-      - Wire distribution to news outlets
-      - Search engine syndication
-      - Media pickup tracking
-      - Distribution reporting
+      note: >-
+        PR Newswire publishes no rate card. https://www.prnewswire.com/pricing/
+        returns 404 and distribution is quoted through sales. Per-release figures
+        circulating in third-party comparison sites are not sourced from Cision and
+        are not recorded here.
   - name: PRWeb Distribution
-    description: Entry-level press release distribution for small businesses and startups. No membership required.
-    url: https://www.prweb.com/
+    description: >-
+      Entry-level self-serve press release distribution for small businesses. The one
+      Cision-family product with a live public rate card.
+    url: https://www.prweb.com/pricing/
+    published_price: true
+    verified: '2026-08-13'
     pricing:
       model: per-release
+      currency: USD
       tiers:
-        - name: Basic
-          cost: 110
-          currency: USD
-          per: release
-        - name: Standard
-          cost: 230
-          currency: USD
-          per: release
-        - name: Advanced
-          cost: 340
-          currency: USD
-          per: release
-        - name: Premium
-          cost: 455
-          currency: USD
-          per: release
+        - {name: Basic, cost: 120, per: release, note: 'Increased search engine visibility; unlimited media assets; 48-hour turnaround'}
+        - {name: Standard, cost: 245, per: release, note: 'Increased online visibility; keyword tagging by editorial team; 48-hour turnaround'}
+        - {name: Advanced, cost: 360, per: release, note: 'Increased influencer visibility; distribution to a 1200+ website network powered by PR Newswire; 24-hour turnaround'}
+        - {name: Premium, cost: 480, per: release, note: 'Largest influencer visibility; proofreading by editorial staff included'}
     features:
       - Online press release distribution
       - Search engine optimization
-      - Social media sharing
+      - Unlimited media assets
       - Analytics and reporting
   - name: Connectively (formerly HARO)
-    description: Expert connection service connecting journalists with sources. Formerly known as Help a Reporter Out (HARO).
+    description: Journalist/source matching service.
     url: https://www.connectively.us/
+    published_price: false
+    status: unverified
     pricing:
-      model: subscription
-      period: monthly
-      tiers:
-        - name: Lite
-          cost: 0
-          currency: USD
-          pitches_per_month: 10
-        - name: Core
-          cost: 19
-          currency: USD
-          pitches_per_month: 25
-        - name: Pro
-          cost: 49
-          currency: USD
-          pitches_per_month: 50
-        - name: Premier
-          cost: 149
-          currency: USD
-          pitches_per_month: 150
-    features:
-      - Source pitching to journalists
-      - Query alerts
-      - Profile management
+      model: unknown
+    note: >-
+      Could not be verified on 2026-08-13 — connectively.us returns HTTP 429 behind a
+      Vercel security checkpoint that requires JavaScript. Any tier and price
+      previously recorded for this product has been removed rather than carried
+      forward unverified.
+evidence:
+  - {url: 'https://www.cision.com/pricing/', status: 200, note: 'redirects to /request-pricing/, a sales contact form; no tiers, no prices'}
+  - {url: 'https://www.cision.com/request-pricing/', status: 200}
+  - {url: 'https://www.prweb.com/pricing/', status: 200, note: live rate card with four per-release tiers}
+  - {url: 'https://www.prnewswire.com/pricing/', status: 404}
+  - {url: 'https://www.cision.com/media-database/', status: 404}
+  - {url: 'https://www.connectively.us/', status: 429, note: Vercel security checkpoint}
 notes:
-  - Cision does not publish platform pricing publicly; all quotes require sales engagement
-  - API access is an add-on feature for enterprise CisionOne subscribers
-  - Annual contracts are standard; no monthly platform options
-  - Median annual contract value based on tracked purchases is approximately $12,677
+  - Cision publishes no platform pricing; every CisionOne and Communications Cloud quote requires sales engagement.
+  - API access is an enterprise contract entitlement, not a purchasable plan. HTTP 403 is the runtime signal that an account does not have it.
+  - Annual contracts are the standard commercial form; the MSA makes fees non-cancellable and non-refundable absent an Order term to the contrary.
+  - >-
+    Third-party market estimates of Cision's annual contract value carried in an
+    earlier revision of this file have been removed. They were not published by
+    Cision, so they do not belong in an artifact that records what the provider
+    publishes.

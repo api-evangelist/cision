@@ -1,0 +1,78 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/cision-cisionone-openapi.yml
+status: candidate
+name: Cision MCP (candidate)
+description: >-
+  Cision ships no Model Context Protocol server. No hosted endpoint, no npm or PyPI
+  stdio package, and no mention of MCP in Cision's documentation, GitHub
+  organisation or marketing. The tools below are a CANDIDATE surface derived
+  one-to-one from the operations in the OpenAPI Cision publishes at
+  developers.cision.one — they are what an MCP server for CisionOne would expose,
+  not something Cision offers. No MCPServer pointer is emitted in apis.yml.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    mode is none because no server exists. auth records what a server WOULD need
+    (the X-Auth-Token API key from CisionOne Settings), not an observed handshake.
+    No endpoint URL is guessed here — a plausible-looking MCP path would read as a
+    verified agent surface and there is none.
+searched:
+  - {where: 'Cision help site (cision.atlassian.net/wiki, space CSM)', query: MCP, result: no results}
+  - {where: 'developers.cision.one', result: 'ReDoc reference only; no MCP page'}
+  - {where: 'npm registry', query: cision, result: no MCP package under any Cision name or scope}
+  - {where: 'github.com/cision', result: no MCP repository}
+  - {where: web search, query: Cision MCP server model context protocol, result: no Cision MCP server found}
+server:
+  name: cision
+  transport: null
+  url: null
+tools:
+  - name: list_mention_streams
+    description: List the Mention Streams (saved searches) configured in the authenticated CisionOne organisation.
+    source_operation: openapi/cision-cisionone-openapi.yml#getStreams
+    read_only: true
+    inputs_from_spec: [format]
+  - name: get_mentions
+    description: >-
+      Return the media mentions matching one Mention Stream over a date range, with
+      sentiment, AVE, audience, impact score and social share counts per item.
+    source_operation: openapi/cision-cisionone-openapi.yml#getMentions
+    read_only: true
+    inputs_from_spec:
+      - streamId
+      - filter[range][after]
+      - filter[range][before]
+      - pagination[page]
+      - pagination[page_size]
+      - sort[field]
+      - sort[order]
+      - format
+    constraints:
+      - date range must not exceed 366 days
+      - page x page_size must not exceed 5000 results
+  - name: get_stream_stats
+    description: >-
+      Return the aggregated statistics summary for one Mention Stream over a date
+      range — advertising values, audiences by media type and the sentiment histogram.
+    source_operation: openapi/cision-cisionone-openapi.yml#getStreamStats
+    read_only: true
+    inputs_from_spec:
+      - streamId
+      - filter[range][after]
+      - filter[range][before]
+      - format
+    constraints:
+      - date range must not exceed 366 days
+notes:
+  - >-
+    All three candidate tools are read-only. The CisionOne API publishes no write
+    operations, so an MCP server built on it could not create or modify anything.
+  - >-
+    A real server would need to self-throttle to 10 requests per minute, keyed on
+    both IP and API key, and would get no RateLimit-* headers to steer by.
