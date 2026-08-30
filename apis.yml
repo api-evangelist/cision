@@ -103,6 +103,8 @@ apis:
   humanURL: https://www.cision.com/cisionone/
   baseURL: https://api.cision.one
   tags:
+  - Mentions
+  tags_raw:
   - mentions
   properties:
   - type: OpenAPI
@@ -117,6 +119,8 @@ apis:
   humanURL: https://www.cision.com/cisionone/
   baseURL: https://api.cision.one
   tags:
+  - Stream
+  tags_raw:
   - stream
   properties:
   - type: OpenAPI
