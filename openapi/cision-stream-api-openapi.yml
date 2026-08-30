@@ -1,0 +1,290 @@
+openapi: 3.2.0
+info:
+  title: CisionOne Stream API
+  description: API
+  version: '2'
+  x-apievangelist-note: info.title and info.version are absent from the spec Cision publishes at https://developers.cision.one/docs/api/v2; supplied here by API Evangelist from the provider docs. See overlays/cision-cisionone-overlay.yaml.
+servers:
+- url: https://api.cision.one
+  description: 'Production. Base host stated in Cision''s own help docs ("All CisionOne API calls are made under https://api.cision.one"); absent from the published spec. Verified: GET https://api.cision.one/public/api/v2/streams returns 401.'
+tags:
+- name: stream
+paths:
+  /public/api/v2/streams:
+    get:
+      tags:
+      - stream
+      summary: Returns an organisation's Streams
+      description: Multiple status values can be provided with comma separated strings
+      operationId: getStreams
+      parameters:
+      - name: format
+        in: query
+        description: JSON or CSV
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stream'
+              example:
+              - id: 3349
+                label: The Daily Show
+                createdAt: '2023-06-14T02:34:56.000Z'
+                updatedAt: '2023-06-14T02:34:56.000Z'
+                queryStyle: boolean
+                keywords: foo
+                excludedKeywords: bar
+                defaultSentimentRating: 0
+                archived: false
+                magazineContent: true
+                onlineContent: true
+                podcastContent: true
+                printContent: true
+                radioContent: true
+                socialContent: true
+                tvContent: true
+        '400':
+          description: Invalid status value
+        '401':
+          description: Unauthorized User or Invalid Token
+        '403':
+          description: Token does not have access to the API
+      security:
+      - api_key:
+        - read:api
+  /public/api/v2/streams/{streamId}/stats:
+    get:
+      tags:
+      - stream
+      summary: Get a statistics summary for a stream
+      description: Returns a statistics summary for a stream.
+      operationId: getStreamStats
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        description: The API Token
+        required: true
+        schema:
+          type: string
+      - name: streamId
+        in: path
+        description: The stream to search on
+        required: true
+        schema:
+          type: integer
+      - name: filter[range][after]
+        in: query
+        description: The beginning of the date range to search. The requested date range (before - after) must not exceed 366 days.
+        required: true
+        explode: true
+        schema:
+          type: string
+      - name: filter[range][before]
+        in: query
+        description: The end of the date range to search. The requested date range (before - after) must not exceed 366 days.
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: format
+        in: query
+        description: JSON or CSV
+        required: true
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamStats'
+              example:
+                streamId: 3349
+                streamLabel: The Daily Show
+                before: '2023-06-14T02:34:56.000Z'
+                after: '2023-06-14T02:34:56.000Z'
+                media:
+                - Online
+                - Print
+                - TV
+                - Radio
+                advertisingValues:
+                - label: TV
+                  values:
+                    count: 100
+                    total: 100
+                - label: Radio
+                  values:
+                    count: 100
+                    total: 100
+                audiencesByType:
+                - label: TV
+                  value: 100
+                - label: Radio
+                  value: 100
+                sentimentAggregation:
+                - label: Negative
+                  values:
+                    from: 0
+                    to: 10
+                    doc_count: 100
+                - label: Trending Negative
+                  values:
+                    from: 0
+                    to: 10
+                    doc_count: 100
+                - label: Balanced
+                  values:
+                    from: 0
+                    to: 20
+                    doc_count: 100
+                - label: Trending Positive
+                  values:
+                    from: 30
+                    to: 40
+                    doc_count: 100
+                - label: Positive
+                  values:
+                    from: 40
+                    to: 50
+                    doc_count: 100
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamStats'
+        '400':
+          description: Invalid request parameters (for example, requested date range exceeds 366 days)
+        '401':
+          description: Unauthorized User or Invalid Token
+        '403':
+          description: Token does not have access to the API
+        '404':
+          description: Invalid streamId
+        '429':
+          description: Too Many Requests
+      security:
+      - api_key:
+        - read:api
+components:
+  schemas:
+    StreamStats:
+      type: object
+      properties:
+        streamId:
+          type: integer
+        streamLabel:
+          type: string
+        after:
+          type: string
+          format: date-time
+        before:
+          type: string
+          format: date-time
+        media:
+          type: array
+          items:
+            type: string
+        advertisingValues:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              values:
+                type: object
+                properties:
+                  count:
+                    type: number
+                  total:
+                    type: number
+                  currency:
+                    type: string
+        audiencesByType:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              value:
+                type: number
+        sentimentAggregation:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              values:
+                type: object
+                properties:
+                  from:
+                    type: number
+                  to:
+                    type: number
+                  doc_count:
+                    type: number
+    Stream:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        label:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        queryStyle:
+          type: string
+          enum:
+          - boolean
+          - keywords
+        keywords:
+          type: string
+        excludedKeywords:
+          type: string
+        contentTypes:
+          type: object
+          properties:
+            onlineContent:
+              type: boolean
+            printContent:
+              type: boolean
+            magazineContent:
+              type: boolean
+            podcastContent:
+              type: boolean
+            tvContent:
+              type: boolean
+            radioContent:
+              type: boolean
+            socialContent:
+              type: boolean
+        defaultSentimentRating:
+          type: number
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Auth-Token
+      in: header
