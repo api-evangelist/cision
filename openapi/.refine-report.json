@@ -1,0 +1,29 @@
+{
+  "provider": "cision",
+  "sources": [
+    "_original/cision-cisionone-openapi.json"
+  ],
+  "outputs": [
+    "cision-mentions-api-openapi.yml",
+    "cision-stream-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [
+    "cision-cisionone-openapi.json: info.title missing",
+    "cision-cisionone-openapi.json: info.version missing"
+  ],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "cision-cisionone-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "cision-cisionone-openapi.json: declared missing tag: mentions",
+    "cision-cisionone-openapi.json: declared missing tag: stream",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/cision-cisionone-openapi.yml: archived document superseded by a larger archived document",
+    "cision-mentions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "cision-stream-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

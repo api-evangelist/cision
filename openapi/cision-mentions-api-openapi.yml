@@ -1,19 +1,14 @@
 openapi: 3.2.0
 info:
-  title: CisionOne Mentions API
   description: API
-  version: '2'
-  x-apievangelist-note: info.title and info.version are absent from the spec Cision publishes at https://developers.cision.one/docs/api/v2; supplied here by API Evangelist from the provider docs. See overlays/cision-cisionone-overlay.yaml.
-servers:
-- url: https://api.cision.one
-  description: 'Production. Base host stated in Cision''s own help docs ("All CisionOne API calls are made under https://api.cision.one"); absent from the published spec. Verified: GET https://api.cision.one/public/api/v2/streams returns 401.'
+  title: Cision Mentions API
 tags:
-- name: mentions
+- name: Mentions
 paths:
   /public/api/v2/mentions/{streamId}:
     get:
       tags:
-      - mentions
+      - Mentions
       summary: Returns a list of mentions for a stream
       operationId: getMentions
       parameters:
