@@ -112,3 +112,40 @@ notes:
     earlier revision of this file have been removed. They were not published by
     Cision, so they do not belong in an artifact that records what the provider
     publishes.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: CisionOne Platform
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Next Generation Cision Communications Cloud
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: PR Newswire Distribution
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: PRWeb Distribution
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Connectively (formerly HARO)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
