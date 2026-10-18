@@ -24,6 +24,23 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-gov-cloud.py
   first_seen: '2026-10-15'
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/A8EJUSLSK-cision-app
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - Cision App
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
 generated: '2026-10-15'
 method: searched
 source:
@@ -34,3 +51,4 @@ checked:
 - https://govramp.org/program-participants
 - https://raw.githubusercontent.com/18F/fedramp-data/4b73d9247fd6360759960e4690e3ce4ca858e0fa/data/data.json
 - https://www.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-15/suppliers
+- slack/integrations/slack-integration-edges.yml
