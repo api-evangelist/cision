@@ -41,3 +41,43 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: cision-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@cision/rover-ui
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@cision/rover-ui'
+      version: 4.1.3
+      released: '2022-06-29'
+      released_field: modified
+      lapsed: true
+      page: https://www.npmjs.com/package/@cision/rover-ui
+      repo_leg: github-org:cision
+      publisher_leg: org:cision
+      matched_by: github-org
+    - name: cision-websolutions
+      version: 4.3.0
+      released: '2022-04-12'
+      released_field: modified
+      lapsed: true
+      page: https://www.npmjs.com/package/cision-websolutions
+      repo_leg: domain:cision.com
+      publisher_leg: email:cision.com
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
