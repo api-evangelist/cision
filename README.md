@@ -64,43 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cision is an AI-powered PR and earned media software platform providing tools for media database access, press release distribution, media monitoring, analytics, and influencer identification. The CisionOne platform offers a REST API that connects media monitoring data with internal tools and business intelligence platforms including Tableau, PowerBI, and Domo.
+Cision is an AI-powered PR and earned media software platform offering REST APIs for media database access, press release distribution, media monitoring, analytics, and influencer identification. CisionOne provides a REST API that connects media monitoring data with internal tools, BI platforms, and reporting systems.
 
-## APIs
+**Areas:** PR Software · Public Relations · Earned Media · Media Monitoring · Press Release Distribution · Media Database · Influencer Identification · Analytics
 
-- **CisionOne API** - REST API for media monitoring data, mention streams, and analytics. Base URL: `https://api.cision.one`
-- **Media Database API** - Access to 1.4M+ journalist and influencer contacts
-- **PR Newswire Distribution API** - Programmatic press release distribution across local, national, and global wire networks
+## Cision on APIs.io
 
-## Authentication
+Everything profiled for Cision is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cision/](https://apis.io/providers/cision/)** — or go straight to one of the APIs or properties below.
 
-The CisionOne API uses token-based authentication. Tokens are generated through CisionOne Admin settings and must be included as a Bearer token in the Authorization header of each request.
+### APIs (4)
 
-## Rate Limits
+- [Next Generation Cision Communications Cloud API](https://apis.io/apis/cision/cision-communications-cloud-api/) — REST API for the Next Generation Cision Communications Cloud, Cision's earned media monitoring and analytics platform. Runs off searches already created in…
+- [Cision Web Solutions Public API](https://apis.io/apis/cision/cision-web-solutions-api/) — Public data API behind Cision Web Solutions, Cision's embeddable investor relations and online newsroom module library. Serves press release feeds and media…
+- [Cision Mentions API](https://apis.io/apis/cision/cision-mentions-api/) — The mentions API from Cision — 1 operation(s) for mentions.
+- [Cision Stream API](https://apis.io/apis/cision/cision-stream-api/) — The stream API from Cision — 2 operation(s) for stream.
 
-CisionOne API requests are throttled to a maximum of 10 requests per minute (approximately 1 request every 6 seconds) across all endpoints.
+### Published properties
 
-## Pricing
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Cision does not publish platform pricing publicly. All CisionOne platform subscriptions require custom quotes via sales and annual contracts. Typical pricing:
+#### AsyncAPI (1)
 
-- CisionOne Platform: $10,000–$30,000+/year
-- Journalist Database Only: ~$5,700–$6,000/year
-- PR Newswire: Pay-per-release ($350–$8,700) + $195/year membership
-- PRWeb: $110–$455 per release
-- Connectively: Free–$149/month
+Event-driven and webhook contracts.
 
-## Links
+- [Cision Webhooks](https://apis.io/asyncapis/cision/cision-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [cision](https://apis.io/servers/cision/cision/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Cision Context](https://apis.io/jsonld/cision/cision-context/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Cision Cisionone Overlay](https://apis.io/overlays/cision/cision-cisionone-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Cision Authentication](https://apis.io/security/cision/cision-authentication/)
+- [Cision Domain Security](https://apis.io/security/cision/cision-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Cision Plans Pricing](https://apis.io/plans/cision/cision-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Cision Rate Limits](https://apis.io/rate-limits/cision/cision-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Cision Finops](https://apis.io/finops/cision/cision-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.cision.com/)
-- [CisionOne Platform](https://www.cision.com/cisionone/)
 - [Documentation](https://cision.atlassian.net/wiki/spaces/CSM/pages/26385776684/CisionOne+-+API)
-- [GitHub](https://github.com/cision)
-- [Status Page](https://oneuptime.cision.com/)
+- [Getting started](https://cision.atlassian.net/wiki/spaces/CSM/pages/25764989843/Settings+-+Cision+API)
+- [API reference](https://developers.cision.one/docs/api/v2)
+- [Pricing](https://www.cision.com/pricing/)
+- [Support](https://www.cision.com/contact-us/)
 - [Blog](https://www.cision.com/us/blog/)
-- [LinkedIn](https://www.linkedin.com/company/cision)
-- [X / Twitter](https://x.com/cision)
+- [Compliance](https://www.cision.com/legal/security-statement/)
+- [Terms of service](https://www.cision.com/legal/msa/)
+- [Privacy policy](https://www.cision.com/legal/privacy-policy/)
+- [GitHub](https://github.com/cision)
+- [Status](https://oneuptime.cision.com/)
 
-## Maintainer
+## API Evangelist rating
 
-Kin Lane (kin@apievangelist.com)
+**Kin Score 56.2** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.0 |
+| Contract quality | 54.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 47.4 |
+| Developer ergonomics | 49.4 |
+| Access clarity | 77.6 |
+
+**Agent readiness 33.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cision/](https://apis.io/providers/cision/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cision: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cision/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
